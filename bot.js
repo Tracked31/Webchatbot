@@ -20,7 +20,7 @@ class bot {
       this.dict['schlafen'] = 'Schlafen wirkt wie eine Droge ist aber gesund.'
     this.dict['Hallo'] = 'Hallo, wie kann ich dir bei der Studiensuche helfen?'
     this.dict['Studium'] = ''
-    this.dict['Bereiche'] = 'Es gibt Themenbereiche Technik, Sport, Wirtschaft.' /**zusätzliche Themen hier noch einfügen */
+    this.dict['Bereiche'] = 'Es gibt Studienfelder wie Technik, Sport, Wirtschaft, Informatik.' /**zusätzliche Themen hier noch einfügen */
     this.dict['Stärken'] = 'Worin warst du denn immer gut, zum Beispiel in der Schule?'
     this.dict['Interessen'] = 'Was hat dich denn schon immer brennend interessiert?'
       this.dict['keine Interressen'] = 'Jede Person hat etwas das sie interessiert. Hast du denn schon einmal einen Orientierungstest gemacht'

@@ -1,50 +1,107 @@
-<html><head>
-    <script src=".\form.html"></script>
-    <script src=".\js\jquery.js"></script>      
-</head>
-<body>
-    <div id="msgs" style="height:400px; width:400px; overflow: scroll; float:left;">
-    </div>
-    <div id="users" style="height:400px; width:100px; overflow: scroll;">
-    </div>
-    <form id="chatForm">
-        <label for="msg">u1:&nbsp;</label>
-        <input id="msg" type="text"/>
-        <button id="sendBtn">Send</button>
-        <script>
-            var socket = new WebSocket('ws://localhost:8181/', 'chat');
-            var name = 'u1'
-            socket.onopen = function () {
-                
-                name = "name" + Math.floor(Math.random() * Math.floor(700));
+<html>
+    <head>
+        <link href=".\css\style.css" rel="stylesheet"> 
+        <script src=".\js\jquery.js"></script>
+    </head>
+        <body>
+            <div id="msgs" style="height:400px; width:400px; overflow: scroll; float:left;">
+            </div>
+            <div id="users" style="height:400px; width:100px; overflow: scroll;">
+            </div>
+            <form id="chatForm">
+                <label for="msg">u1:&nbsp;</label>
+                <input id="msg" type="text" placeholder="Schreib mir eine Nachricht..."/>
+                <button id="sendBtn">Send</button>
+                <script>
+                    var socket = new WebSocket('ws://localhost:8181/', 'chat');
+                    var name = 'user'
+                    socket.onopen = function () {
+            
+                    name = "name" + Math.floor(Math.random() * Math.floor(700));
 
-                socket.send('{"type": "join", "name":" '+name+'"}');
-            }
-            $('#sendBtn').on('click', function (e) {
-                e.preventDefault();
-                //name = 'u1',
-                msg = $('#msg').val();
-                socket.send('{"type": "msg", "msg": "' + msg + '"}');
-                $('#msg').val('');
-            });
-            socket.onmessage = function (msg) {
-                var data = JSON.parse(msg.data);
-                switch (data.type) {
-                    case 'msg':
-                        var msg = $('<div>' + data.name + ': ' + data.msg +
-                                '</div>');
-                        $('#msgs').append(msg);
-                        break;
-                    case 'join':
-                        $('#users').empty();
-                        for (var i = 0; i < data.names.length; i++) {
-                            var user = $('<div>' + data.names[i] + '</div>');
-                            $('#users').append(user);
-                        }
-                        break;
+                    socket.send('{"type": "join", "name":" '+name+'"}');
                 }
-            };
-            </script>
-        </form>
+                    $('#sendBtn').on('click', function (e) {
+                    e.preventDefault();
+                    //name = 'u1',
+                    msg = $('#msg').val();
+                    if (msg != '')addMsg(1, msg)
+                    socket.send('{"type": "msg", "msg": "' + msg + '"}');
+                    $('#msg').val('');
+                });
+                socket.onmessage = function (msg) {
+                        var data = JSON.parse(msg.data);
+                        switch (data.type) {
+                            case 'msg':
+                                var msg = $('<div>' + data.name + ': ' + data.msg +
+                                        '</div>');
+                                $('#msgs').append(msg);
+                                break;
+                            case 'join':
+                                $('#users').empty();
+                                for (var i = 0; i < data.names.length; i++) {
+                                    var user = $('<div>' + data.names[i] + '</div>');
+                                    $('#users').append(user);
+                                }
+                                break;
+                        }
+                    };
+                    function addMsg(people, msg){
+                        var users = "user";
+                        var $_phone = $('#msg');
+                        var $_lastMessage = $('#msg .message:last');
+
+                        if (people == 1) users = 'user';
+                        if (people == 2) users = 'bot';
+                        
+                        if ($_lastMessage.hasClass(users)) {
+                            $_lastMessage.append(
+                                $('<div>').addClass('message-text').text(msg)
+                            )
+                        } else {
+                            $_phone.append(
+                                $('<div>').addClass('Bubble'+users).append(
+                                    $('<div>').addClass('message-text').text(msg)
+
+                            )
+                            )
+                        }
+                        
+                    }
+                </script>
+
+                <div class="bubbleWrapper">
+                    <div class="inlineContainer user">        
+                        <img class="inlineIcon" src= ".\images\Avatar_user.png">
+                            <div class="Bubble user">    
+                                <div class="message-text">
+                                    </div>               
+                    </div>
+                    </div><span class="user">
+                        <msg.send onclick= "setTimeout(Timestamp,0)"></msg.send>
+                    <script>
+                    function Timestamp(){
+                        return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes(); 
+                    }
+                    </script>
+                    </span>
+                </div>
+                <div class="bubbleWrapper">
+                    <div class="inlineContainer bot">   
+                        <img class="inlineIcon" src=".\images\boticon.png">
+                            <div class="Bubble bot">
+                                <div class="message-text">
+                                    </div>           
+                    </div>
+                    </div><span class="bot">
+                        <msg.send onclick= "setTimeout(Timestamp,0)"></msg.send>
+                        <script>
+                        function Timestamp(){
+                            return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes(); 
+                        }
+                        </script>
+                    </span>
+                </div>
+            </form>
     </body>
 </html>
