@@ -1,6 +1,7 @@
 'use strict'
 
 var WebSocketClient = require('websocket').client
+var script = require('./js/scripts.js')
 
 /**
  * bot  ist ein einfacher Websocket Chat Client
@@ -87,7 +88,7 @@ class bot {
       */
       function joinGesp () {
         if (connection.connected) {
-          connection.sendUTF('{"type": "join", "name":"MegaBot"}')
+          connection.sendUTF('{"type": "join", "name":"Chatbot"}')
         }
       }
       joinGesp()
@@ -112,12 +113,12 @@ class bot {
   post (nachricht) {
     var name = 'Chatbot'
     var inhalt = 'Hallo, wie kann ich dir bei der Studiensuche helfen?'
-
+    /** 
     for ( var i in this.dict) {
       console.log(i)
       console.log(this.dict[i])
     }
-
+    */
     for ( var j in this.dict) {
       if (nachricht.includes(j)) {
         inhalt = this.dict[j]
@@ -128,6 +129,7 @@ class bot {
     */
 
     var msg = '{"type": "msg", "name": "' + name + '", "msg":"' + inhalt + '"}'
+    if(msg != '', name == Chatbot)script.addMsg(2,msg)
     console.log('Send: ' + msg)
     this.client.con.sendUTF(msg)
   }

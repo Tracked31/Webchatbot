@@ -2,6 +2,7 @@
     <head>
         <link href=".\css\style.css" rel="stylesheet"> 
         <script src=".\js\jquery.js"></script>
+        <script src=".\js\scripts.js"></script>
     </head>
         <body>
             <div id="msgs" style="height:400px; width:400px; overflow: scroll; float:left;">
@@ -25,7 +26,7 @@
                     e.preventDefault();
                     //name = 'u1',
                     msg = $('#msg').val();
-                    if (msg != '')addMsg(1, msg)
+                    if (msg != '' ,name !=Chatbot)addMsg(1, msg);
                     socket.send('{"type": "msg", "msg": "' + msg + '"}');
                     $('#msg').val('');
                 });
@@ -34,7 +35,7 @@
                         switch (data.type) {
                             case 'msg':
                                 var msg = $('<div>' + data.name + ': ' + data.msg +
-                                        '</div>');
+                                        '</div>')
                                 $('#msgs').append(msg);
                                 break;
                             case 'join':
@@ -46,28 +47,6 @@
                                 break;
                         }
                     };
-                    function addMsg(people, msg){
-                        var users = "user";
-                        var $_phone = $('#msg');
-                        var $_lastMessage = $('#msg .message:last');
-
-                        if (people == 1) users = 'user';
-                        if (people == 2) users = 'bot';
-                        
-                        if ($_lastMessage.hasClass(users)) {
-                            $_lastMessage.append(
-                                $('<div>').addClass('message-text').text(msg)
-                            )
-                        } else {
-                            $_phone.append(
-                                $('<div>').addClass('Bubble'+users).append(
-                                    $('<div>').addClass('message-text').text(msg)
-
-                            )
-                            )
-                        }
-                        
-                    }
                 </script>
 
                 <div class="bubbleWrapper">
@@ -78,12 +57,7 @@
                                     </div>               
                     </div>
                     </div><span class="user">
-                        <msg.send onclick= "setTimeout(Timestamp,0)"></msg.send>
-                    <script>
-                    function Timestamp(){
-                        return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes(); 
-                    }
-                    </script>
+                        <msg.send onclick= "setTimeout(script.Timestamp,0)"></msg.send>
                     </span>
                 </div>
                 <div class="bubbleWrapper">
@@ -94,12 +68,7 @@
                                     </div>           
                     </div>
                     </div><span class="bot">
-                        <msg.send onclick= "setTimeout(Timestamp,0)"></msg.send>
-                        <script>
-                        function Timestamp(){
-                            return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes(); 
-                        }
-                        </script>
+                        <msg.send onclick= "setTimeout(script.Timestamp,0)"></msg.send>
                     </span>
                 </div>
             </form>
