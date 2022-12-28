@@ -1,7 +1,6 @@
 'use strict'
 
 var WebSocketClient = require('websocket').client
-var script = require('./js/scripts.js')
 
 /**
  * bot  ist ein einfacher Websocket Chat Client
@@ -15,10 +14,6 @@ class bot {
    */
   constructor () {
     this.dict = []
-    this.dict['suche'] = 'Wenn sie etwas suchen sind Sie hier falsch es geht um Drogen'
-    this.dict['rauchen'] = 'Rauchen ist eine schreckliche Sache.'
-    this.dict['trinken'] = 'Trinken kann man auch Wasser.'
-      this.dict['schlafen'] = 'Schlafen wirkt wie eine Droge ist aber gesund.'
     this.dict['Hallo'] = 'Hallo, wie kann ich dir bei der Studiensuche helfen?'
     this.dict['Studium'] = ''
     this.dict['Bereiche'] = 'Es gibt Studienfelder wie Technik, Sport, Wirtschaft, Informatik.' /**zusätzliche Themen hier noch einfügen */
@@ -129,7 +124,6 @@ class bot {
     */
 
     var msg = '{"type": "msg", "name": "' + name + '", "msg":"' + inhalt + '"}'
-    if(msg != '', name == Chatbot)script.addMsg(2,msg)
     console.log('Send: ' + msg)
     this.client.con.sendUTF(msg)
   }

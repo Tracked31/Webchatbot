@@ -1,17 +1,20 @@
-<html>
+<!DOCTYPE html> 
+<html lang="de">    
     <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href=".\css\style.css" rel="stylesheet"> 
         <script src=".\js\jquery.js"></script>
         <script src=".\js\scripts.js"></script>
     </head>
         <body>
-            <div id="msgs" style="height:400px; width:400px; overflow: scroll; float:left;">
+            <div class="center-screen" id="module">
+                <div id="msgs"></div>
+                <div id="users"></div>
             </div>
-            <div id="users" style="height:400px; width:100px; overflow: scroll;">
-            </div>
+            <div class="lowerPart">
             <form id="chatForm">
-                <label for="msg">u1:&nbsp;</label>
-                <input id="msg" type="text" placeholder="Schreib mir eine Nachricht..."/>
+                <input id="msg" type="text" placeholder=" Schreib mir eine Nachricht..."/>
                 <button id="sendBtn">Send</button>
                 <script>
                     var socket = new WebSocket('ws://localhost:8181/', 'chat');
@@ -36,41 +39,21 @@
                             case 'msg':
                                 var msg = $('<div>' + data.name + ': ' + data.msg +
                                         '</div>')
+                                        if(data != '', data.name == Chatbot)script.addMsg(2,data)
                                 $('#msgs').append(msg);
                                 break;
                             case 'join':
                                 $('#users').empty();
                                 for (var i = 0; i < data.names.length; i++) {
                                     var user = $('<div>' + data.names[i] + '</div>');
+                                    if(data != '', data.name == Chatbot)script.addMsg(2,data)
                                     $('#users').append(user);
                                 }
                                 break;
                         }
                     };
                 </script>
-
-                <div class="bubbleWrapper">
-                    <div class="inlineContainer user">        
-                        <img class="inlineIcon" src= ".\images\Avatar_user.png">
-                            <div class="Bubble user">    
-                                <div class="message-text">
-                                    </div>               
-                    </div>
-                    </div><span class="user">
-                        <msg.send onclick= "setTimeout(script.Timestamp,0)"></msg.send>
-                    </span>
-                </div>
-                <div class="bubbleWrapper">
-                    <div class="inlineContainer bot">   
-                        <img class="inlineIcon" src=".\images\boticon.png">
-                            <div class="Bubble bot">
-                                <div class="message-text">
-                                    </div>           
-                    </div>
-                    </div><span class="bot">
-                        <msg.send onclick= "setTimeout(script.Timestamp,0)"></msg.send>
-                    </span>
-                </div>
             </form>
+            </div>  
     </body>
 </html>
