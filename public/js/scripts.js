@@ -1,4 +1,4 @@
-function addMsg(people, msg){
+/*function addMsg(people, msg){
     var users = "user";
     var $_phone = $('#msg');
     var $_lastMessage = $('#msg .message:last');
@@ -20,7 +20,7 @@ function addMsg(people, msg){
     }
     console.log(msg);
 }
-
+*/
 function Timestamp(){
     return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes(); 
 }

@@ -58,7 +58,7 @@
   #sendBtn:hover {
     outline: 0;
   }
-  #msgs{
+  .msgs{
     background-color: #fdfdfd;
     border: 0.5px solid #0d0d0d;
     height: 670px; 
@@ -86,6 +86,7 @@
   }
 
   #users{
+    position: static;
     border: 0.5px solid #0d0d0d;
     border-radius: 0 25px 25px 0;
     height: 670px; 
@@ -101,6 +102,7 @@
     cursor: auto
 
   }
+  /*
   #userMsg{
     text-align: right;
     font-size: large;
@@ -108,18 +110,50 @@
   #botMsg{
     text-align: left;
   }
-  input {
-    position: relative;
-    display: inline-block;
-    font-size: 20px;
-    box-sizing: border-box;
-    transition: 0.5s;
+  */
+  .bubbleWrapper {
+    padding: 10px 10px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-self: flex-end;
+    color: #fff;
   }
-  input[type="text"] {
-    position: relative;
-    display: inline-block;
-    font-size: 20px;
-    box-sizing: border-box;
-    transition: 0.5s;
-    border-radius: 0 0 0 25px
+  .inlineContainerUser {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    background-color: none;
+  }
+  .inlineContainerBot {
+    display: inline-flex;
+    background-color: none;
+  }
+  .inlineIcon {
+    width:40px;
+    object-fit: contain;
+  }
+  .BubbleUser {
+    min-width: 100px;
+    max-width: 700px;
+    padding: 14px 18px;
+    margin: 6px 8px; 
+    border-radius: 16px 16px 0 16px;
+    align-self: flex-end;
+    background-color: #6C8EA4;
+    border: 1px solid #54788e;
+  }
+  .BubbleBot {
+    min-width: 100px;
+    max-width: 700px;
+    padding: 14px 18px;
+    margin: 6px 8px; 
+    border-radius: 16px 16px 0 16px;
+    align-self: flex-start;
+    background-color: #5b5377;
+    border: 1px solid #443f56;
+  }
+  span.own,
+  span.other{
+    font-size: 14px;
+    color: grey;
   }

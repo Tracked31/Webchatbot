@@ -9,50 +9,67 @@
     </head>
         <body>
             <div class="center-screen" id="module">
-                <div id="msgs"></div>
+                <div class="msgs">
+                    <script>
+                        var socket = new WebSocket('ws://localhost:8181/', 'chat');
+                        var name = 'User'
+                    </script>
+                        <section id ="chatboxuser">
+                        </section>  
+                        <script>
+                            socket.onopen = function () {
+                            socket.send('{"type": "join", "name":" '+name+'"}');
+                        }
+                            $('#sendBtn').on('click', function (e) {
+                            e.preventDefault();
+                            //name = 'u1',
+                            msg = $('#msg').val();
+                            socket.send('{"type": "msg", "msg": "' + msg + '"}');
+                            $('#msg').val('');
+                        });
+                        function addChatentry(msg){
+                            const Chatbox = document.getElementById("chatboxuser");
+                            const newBubble = document.createElement("div");
+                            newBubble.getElementsByClassName = "BubbleUser";
+                            newBubble.innerHTML = `${msg}`;
+                            Chatbox.append(newBubble);
+                        }
+                        </script>
+                    <section id ="chatboxbot">
+                    </section>  
+                            <script>
+                                socket.onmessage = function (msg) {
+                                    var data = JSON.parse(msg.data);
+                                    switch (data.type) {
+                                        case 'msg':
+                                            var msg = $('<div>' + data.name + ': ' + data.msg +
+                                                    '</div>')
+                                            $('#msgs').append(msg);
+                                            break;
+                                        case 'join':
+                                            $('#users').empty();
+                                            for (var i = 0; i < data.names.length; i++) {
+                                                var user = $('<div>' + data.names[i] + '</div>');
+                                                $('#users').append(user);
+                                            }
+                                            break;
+                                    }
+                                };
+                                function addChatentry(msg){
+                                    const Chatbox = document.getElementById("chatboxbot");
+                                    const newBubble = document.createElement("div");
+                                    newBubble.getElementsByClassName = "BubbleBot";
+                                    newBubble.innerHTML = `${msg}`;
+                                    Chatbox.append(newBubble);
+                                }
+                            </script>           
+                </div>
                 <div id="users"></div>
             </div>
             <div class="lowerPart">
             <form id="chatForm">
                 <input id="msg" type="text" placeholder=" Schreib mir eine Nachricht..."/>
                 <button id="sendBtn">Send</button>
-                <script>
-                    var socket = new WebSocket('ws://localhost:8181/', 'chat');
-                    var name = 'user'
-                    socket.onopen = function () {
-            
-                    name = "name" + Math.floor(Math.random() * Math.floor(700));
-
-                    socket.send('{"type": "join", "name":" '+name+'"}');
-                }
-                    $('#sendBtn').on('click', function (e) {
-                    e.preventDefault();
-                    //name = 'u1',
-                    msg = $('#msg').val();
-                    if (msg != '' ,name !=Chatbot)addMsg(1, msg);
-                    socket.send('{"type": "msg", "msg": "' + msg + '"}');
-                    $('#msg').val('');
-                });
-                socket.onmessage = function (msg) {
-                        var data = JSON.parse(msg.data);
-                        switch (data.type) {
-                            case 'msg':
-                                var msg = $('<div>' + data.name + ': ' + data.msg +
-                                        '</div>')
-                                        if(data != '', data.name == Chatbot)script.addMsg(2,data)
-                                $('#msgs').append(msg);
-                                break;
-                            case 'join':
-                                $('#users').empty();
-                                for (var i = 0; i < data.names.length; i++) {
-                                    var user = $('<div>' + data.names[i] + '</div>');
-                                    if(data != '', data.name == Chatbot)script.addMsg(2,data)
-                                    $('#users').append(user);
-                                }
-                                break;
-                        }
-                    };
-                </script>
             </form>
             </div>  
     </body>
