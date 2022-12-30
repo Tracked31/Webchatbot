@@ -8,69 +8,109 @@
         <script src=".\js\scripts.js"></script>
     </head>
         <body>
+            <ul id="menu">
+                <li><a href=".\html\home.html">Home</a></li>
+                <li><a href=".\index.html">Chatbot</a></li>
+                <li><a href=".\html\weiteres.html">Weiterführend</a></li>
+                <li><a href=".\html\contact.html">Kontakt</a></li>
+            </ul>
             <div class="center-screen" id="module">
                 <div class="msgs">
-                    <script>
-                        var socket = new WebSocket('ws://localhost:8181/', 'chat');
-                        var name = 'User'
-                    </script>
                         <section id ="chatboxuser">
+                            <div class="bubbleWrapper">
+                                <div class="inlineContainerUser">
+                                    <div class="inlineIcon" src=".\images\Avatar_user.png">
+                                        <div class="BubbleUser">
+                                        </div>
+                                    </div>   
+                                </div>
+                            </div>
                         </section>  
-                        <script>
-                            socket.onopen = function () {
-                            socket.send('{"type": "join", "name":" '+name+'"}');
-                        }
-                            $('#sendBtn').on('click', function (e) {
-                            e.preventDefault();
-                            //name = 'u1',
-                            msg = $('#msg').val();
-                            socket.send('{"type": "msg", "msg": "' + msg + '"}');
-                            $('#msg').val('');
-                        });
-                        function addChatentry(msg){
-                            const Chatbox = document.getElementById("chatboxuser");
-                            const newBubble = document.createElement("div");
-                            newBubble.getElementsByClassName = "BubbleUser";
-                            newBubble.innerHTML = `${msg}`;
-                            Chatbox.append(newBubble);
-                        }
-                        </script>
                     <section id ="chatboxbot">
-                    </section>  
-                            <script>
-                                socket.onmessage = function (msg) {
-                                    var data = JSON.parse(msg.data);
-                                    switch (data.type) {
-                                        case 'msg':
-                                            var msg = $('<div>' + data.name + ': ' + data.msg +
-                                                    '</div>')
-                                            $('#msgs').append(msg);
-                                            break;
-                                        case 'join':
-                                            $('#users').empty();
-                                            for (var i = 0; i < data.names.length; i++) {
-                                                var user = $('<div>' + data.names[i] + '</div>');
-                                                $('#users').append(user);
-                                            }
-                                            break;
-                                    }
-                                };
-                                function addChatentry(msg){
-                                    const Chatbox = document.getElementById("chatboxbot");
-                                    const newBubble = document.createElement("div");
-                                    newBubble.getElementsByClassName = "BubbleBot";
-                                    newBubble.innerHTML = `${msg}`;
-                                    Chatbox.append(newBubble);
-                                }
-                            </script>           
+                        <div class="bubbleWrapper">
+                            <div class="inlineContainerBot">
+                                <div class="inlineIcon" src=".\images\boticon.png">
+                                    <div class="BubbleBot">       
+                                    </div>
+                                </div>   
+                            </div>
+                        </div>
+                    </section>              
                 </div>
-                <div id="users"></div>
             </div>
             <div class="lowerPart">
             <form id="chatForm">
                 <input id="msg" type="text" placeholder=" Schreib mir eine Nachricht..."/>
-                <button id="sendBtn">Send</button>
+                <button id="sendBtn" onclick=addtext()>Send</button>
             </form>
-            </div>  
+            </div>
     </body>
+    <script>
+            var socket = new WebSocket('ws://localhost:8181/', 'chat');
+                var name = 'User'
+                socket.onopen = function () {
+                socket.send('{"type": "join", "name":" '+name+'"}');
+                }
+                $('#sendBtn').on('click', function (e) {
+                e.preventDefault();
+                //name = 'u1',
+                msg = $('#msg').val();
+                socket.send('{"type": "msg", "msg": "' + msg + '"}');
+                     $('#msg').val('');
+                });
+                socket.onmessage = function (msg) {
+                var data = JSON.parse(msg.data);
+                switch (data.type) {
+                        case 'msg':
+                            var msg = $('<div>' + data.name + ': ' + data.msg +
+                                        '</div>')
+                                $('#msgs').append(msg);
+                                break;
+                        case 'join':
+                            $('#users').empty();
+                            for (var i = 0; i < data.names.length; i++) {
+                            var user = $('<div>' + data.names[i] + '</div>');
+                            $('#users').append(user);
+                            }
+                            break;
+                        }};
+                        function addtext(){
+                        var div1 = document.getElementsByClassName("BubbleUser")
+                        div1.innerHTML += "msg"
+                        }
+                                            /*
+                                            function addChatentry(msg){
+                                                const Chatbox = document.getElementById("chatboxuser");
+                                                const newBubble = document.createElement("div");
+                                                newBubble.getElementsByClassName = "BubbleUser";
+                                                newBubble.innerHTML = `${msg}`;
+                                                Chatbox.append(newBubble);
+                                            }
+                                            */
+                        $('.msg').on('click', function(){
+                        if(!$('msg').hasClass("BubbleUser")){
+                            $('msg').addClass("Bubbleuser");
+                            $('inlineIcon').show();
+                            }
+                        }
+                        )
+                        var div2 = document.getElementsByClassName("BubbleBot")
+                        div2.innerHTML += "data.msg"
+                                            /*
+                                            function addChatentry(msg){
+                                                const Chatbox = document.getElementById("chatboxbot");
+                                                const newBubble = document.createElement("div");
+                                                newBubble.getElementsByClassName = "BubbleBot";
+                                                newBubble.innerHTML = `${msg}`;
+                                                Chatbox.append(newBubble);
+                                            }
+                                            */
+                        $('data.msg').on('click', function(){
+                        if(!$('data.msg').hasClass("BubbleBot")){
+                            $('data.msg').addClass("BubbleBot");
+                            $('inlineIcon').show();
+                            }
+                        }
+                        )
+    </script>
 </html>

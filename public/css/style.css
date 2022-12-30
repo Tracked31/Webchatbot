@@ -5,10 +5,24 @@
     background-image: url(../images/background6.webp);
     background-color: rgb(245, 248, 248);
   }
-  #chatForm{
-    width: 800;
+  #menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    font-family: sans-serif;
   }
-  
+  li {
+    float: left;
+  }
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }    
   .center-screen {
     margin-top: 10px;   
     min-height: 60vh;
@@ -20,19 +34,21 @@
     text-align: center;
   }
   .lowerPart {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-left: 227.5;
-    margin-right: 227.5;
+    width: 800px;
+    height: 51px;
+    margin-left: 359px;
+    border: 0.5px solid #0d0d0d;
+    border-radius: 0 0 12px 12px;
+    outline: #0d0d0d;
+   
+    
   }
   #sendBtn{
     font-size: 24px;
     border: 0;
-    border-radius: 0 8px 8px 0;
-    height: 50px;
-    width: 196px;
+    border-radius: 0 0 12px 0;
+    height: 51px;
+    width: 197px;
     cursor: pointer;
     outline: none;
     align-items: center;
@@ -45,8 +61,7 @@
     justify-content: center;
     line-height: 1em;
     max-width: 100%;
-    min-width: 140px;
-    padding: 19px 24px;
+    min-width: 140px; 
     text-decoration: none;
     user-select: none;
     -webkit-user-select: none;
@@ -58,33 +73,33 @@
   #sendBtn:hover {
     outline: 0;
   }
-  .msgs{
-    background-color: #fdfdfd;
-    border: 0.5px solid #0d0d0d;
-    height: 670px; 
-    width:600px; 
-    overflow: scroll; 
-    float:left;
-    color: rgb(10, 5, 10);  
-    border-radius: 70px 0 0 70px;
-    opacity: 0.85  ;
-    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
-  }
   #msg{
+    height: 49px;
+    width: 599px;
     font-size: larger;
     font-family: 'Roboto', sans-serif;
     display: inline-block;
     color: #FFFFFF;
     background: #0f2027;
     background: linear-gradient(to right,#2c5364, #203a43, #0f2027);
-    width: 450px;
-    height: 50px;
     border: none;
-    border-radius: 4px 0 0 12px;
+    border-radius: 0 0 0 12px;
     outline: none;
     text-size-adjust: 20px;
   }
-
+  .msgs{
+    background-color: #fdfdfd;
+    border: 0.5px solid #0d0d0d;
+    height: 600px; 
+    width:800px; 
+    overflow: scroll; 
+    float:left;
+    color: rgb(10, 5, 10);  
+    border-radius: 12px 12px 0 0;
+    opacity: 0.85  ;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  }
+  /*
   #users{
     position: static;
     border: 0.5px solid #0d0d0d;
@@ -102,7 +117,6 @@
     cursor: auto
 
   }
-  /*
   #userMsg{
     text-align: right;
     font-size: large;
@@ -119,10 +133,16 @@
     align-self: flex-end;
     color: #fff;
   }
+  .inlineContainerUser::before{
+    visibility: hidden;
+  }
   .inlineContainerUser {
     display: inline-flex;
     flex-direction: row-reverse;
     background-color: none;
+  }
+  .inlineContainerBot{
+    visibility: hidden;
   }
   .inlineContainerBot {
     display: inline-flex;
@@ -131,6 +151,9 @@
   .inlineIcon {
     width:40px;
     object-fit: contain;
+  }
+  .inlineIcon::before{
+    visibility: hidden;
   }
   .BubbleUser {
     min-width: 100px;
@@ -141,6 +164,10 @@
     align-self: flex-end;
     background-color: #6C8EA4;
     border: 1px solid #54788e;
+    color:  white;
+  }
+  .BubbleUser::before{
+    visibility: hidden;
   }
   .BubbleBot {
     min-width: 100px;
@@ -151,6 +178,10 @@
     align-self: flex-start;
     background-color: #5b5377;
     border: 1px solid #443f56;
+    color: white;
+  }
+  .BubbleBot::before{
+    visibility: hidden;
   }
   span.own,
   span.other{
