@@ -94,39 +94,14 @@
     border: 0.5px solid #0d0d0d;
     height: 600px; 
     width:800px; 
-    overflow: scroll; 
-    float:left;
+    max-width: 100%;
+    overflow-x: hidden; 
+    float: left;
     color: rgb(10, 5, 10);  
     border-radius: 12px 12px 0 0;
     opacity: 0.85  ;
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
   }
-  /*
-  #users{
-    position: static;
-    border: 0.5px solid #0d0d0d;
-    border-radius: 0 25px 25px 0;
-    height: 670px; 
-    width:200px; 
-    overflow: scroll;
-    background-color: #cccccc;
-    opacity: 0.85;
-    background: rgb(2, 0, 36);
-    background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(121, 9, 86, 0.4738270308123249) 11%, rgba(0, 212, 255, 0.3897934173669467) 100%);
-    color: white;
-    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
-    font-size: large;
-    cursor: auto
-
-  }
-  #userMsg{
-    text-align: right;
-    font-size: large;
-  }
-  #botMsg{
-    text-align: left;
-  }
-  */
   .bubbleWrapper {
     padding: 10px 10px;
     display: flex;
@@ -140,9 +115,6 @@
     flex-direction: row-reverse;
     background-color: none;
   }
-  .inlineContainerBot{
-    visibility: hidden;
-  }
   .inlineContainerBot {
     display: inline-flex;
     background-color: none;
@@ -151,7 +123,13 @@
     width:40px;
     object-fit: contain;
   }
-  .BubbleUser {
+  .active{
+    visibility: visible;
+  }
+  .BubbleUser:onclick {
+    visibility: hidden;
+    float: right;
+    overflow-y: scroll;
     min-width: 100px;
     max-width: 700px;
     padding: 14px 18px;
@@ -163,8 +141,8 @@
     color:  white;
   }
   .BubbleBot {
+    overflow-y: scroll;
     min-width: 100px;
-    max-width: 700px;
     padding: 14px 18px;
     margin: 6px 8px; 
     border-radius: 16px 16px 0 16px;
@@ -172,9 +150,4 @@
     background-color: #5b5377;
     border: 1px solid #443f56;
     color: white;
-  }
-  span.own,
-  span.other{
-    font-size: 14px;
-    color: grey;
   }

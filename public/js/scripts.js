@@ -1,26 +1,39 @@
-/*function addMsg(people, msg){
-    var users = "user";
-    var $_phone = $('#msg');
-    var $_lastMessage = $('#msg .message:last');
+var socket = new WebSocket('ws://localhost:8181/', 'chat');
+            var name = 'User'
+            socket.onopen = function () {
+            socket.send('{"type": "join", "name":" '+name+'"}');
+            }
+            $(function(){
+                $('#sendBtn').click(function (e) {
+                e.preventDefault();
+                var msg = $('#msg').val();
+                if (msg.trim()== ''){
+                    return false;
+                }
+                socket.send('{"type": "msg", "msg": "' + msg + '"}');
+                addMsgUser(msg)      
+            })
+            
+            socket.onmessage = function (msg) {
+                var data = JSON.parse(msg.data);
+                    addMsgBot(data.msg)
+                    document.getElementById("msg").value=''
+                };
+        })
 
-    if (people == 1) users = 'user';
-    if (people == 2) users = 'bot';
-    
-    if ($_lastMessage.hasClass(users)) {
-        $_lastMessage.append(
-            $('<div>').addClass('message-text').text(msg)
-        )
-    } else {
-        $_phone.append(
-            $('<div>').addClass('Bubble'+users).append(
-                $('<div>').addClass('message-text').text(msg)
-
-        )
-        )
-    }
-    console.log(msg);
+function addMsgUser(msg){
+    var str = "";
+    str += msg
+    $(".BubbleUser").append(str);
+    document.getElementsByClassName("BubbleUser").addClass("active");
 }
-*/
+
+function addMsgBot(msg){
+    var str = "";
+    str += msg;
+    $(".BubbleBot").append(str);
+}
+
 function Timestamp(){
     return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes(); 
 }

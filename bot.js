@@ -108,12 +108,7 @@ class bot {
   post (nachricht) {
     var name = 'Chatbot'
     var inhalt = 'Hallo, wie kann ich dir bei der Studiensuche helfen?'
-    /** 
-    for ( var i in this.dict) {
-      console.log(i)
-      console.log(this.dict[i])
-    }
-    */
+  
     for ( var j in this.dict) {
       if (nachricht.includes(j)) {
         inhalt = this.dict[j]

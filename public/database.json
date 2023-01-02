@@ -1,4 +1,26 @@
 {"answers":[
     {"intent": "Hallo", "answer": "Hallo, wie kann ich dir bei der Studiensuche helfen?"},
-    {}
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""},
+    {"intent": "", "answer": ""}
 ]}
