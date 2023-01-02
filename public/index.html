@@ -74,43 +74,12 @@
                             }
                             break;
                         }};
-                        function addtext(){
-                        var div1 = document.getElementsByClassName("BubbleUser")
-                        div1.innerHTML += "msg"
-                        }
-                                            /*
-                                            function addChatentry(msg){
-                                                const Chatbox = document.getElementById("chatboxuser");
-                                                const newBubble = document.createElement("div");
-                                                newBubble.getElementsByClassName = "BubbleUser";
-                                                newBubble.innerHTML = `${msg}`;
-                                                Chatbox.append(newBubble);
-                                            }
-                                            */
-                        $('.msg').on('click', function(){
-                        if(!$('msg').hasClass("BubbleUser")){
-                            $('msg').addClass("Bubbleuser");
-                            $('inlineIcon').show();
-                            }
-                        }
-                        )
-                        var div2 = document.getElementsByClassName("BubbleBot")
-                        div2.innerHTML += "data.msg"
-                                            /*
-                                            function addChatentry(msg){
-                                                const Chatbox = document.getElementById("chatboxbot");
-                                                const newBubble = document.createElement("div");
-                                                newBubble.getElementsByClassName = "BubbleBot";
-                                                newBubble.innerHTML = `${msg}`;
-                                                Chatbox.append(newBubble);
-                                            }
-                                            */
-                        $('data.msg').on('click', function(){
-                        if(!$('data.msg').hasClass("BubbleBot")){
-                            $('data.msg').addClass("BubbleBot");
-                            $('inlineIcon').show();
-                            }
-                        }
-                        )
+                function addtext(){
+                    var div1 = document.getElementsByClassName("BubbleUser")
+                    div1.innerHTML += "msg"
+                
+                    var div2 = document.getElementsByClassName("BubbleBot")
+                    div2.innerHTML += "data.msg"
+                }
     </script>
 </html>
