@@ -11,31 +11,52 @@ var socket = new WebSocket('ws://localhost:8181/', 'chat');
                     return false;
                 }
                 socket.send('{"type": "msg", "msg": "' + msg + '"}');
-                addMsgUser(msg)      
+                addMsg(msg,'self')      
             })
             
             socket.onmessage = function (msg) {
                 var data = JSON.parse(msg.data);
-                    addMsgBot(data.msg)
+                if(data.name == 'Chatbot'){
+                    addMsg(data.msg,'bot')
                     document.getElementById("msg").value=''
+                }
                 };
         })
 
-function addMsgUser(msg){
+function addMsg(msg,type){
     var str = "";
-    str += msg
-    $(".BubbleUser").append(str);
-    document.getElementsByClassName("BubbleUser").addClass("active");
+    if(type == 'self'){
+        str += "<div class=\"bubbleWrapper\">";
+        str += "<div class=\"inlineContainerUser\">";
+        str += "<div class=\"BubbleUser\">";
+        str += "<span class=\"inlineIcon\">";
+        str += "<img src=\".\images\Avatar_user.png\">";
+        str += "<\/span>";
+        str += msg;
+        str += "<\/div>";
+        str += "<\/div>",
+        str += "<\/div>";
+        $(".msgs").append(str);
+    }
+    else{
+        str += "<div class=\"bubbleWrapper\">";
+        str += "<div class=\"inlineContainerBot\">";
+        str += "<div class=\"BubbleBot\">";
+        str += "<span class=\"inlineIcon\">";
+        str += "<img src=\".\images\boticon.png\">";
+        str += "<\/span>";
+        str += msg;
+        str += "<\/div>";
+        str += "<\/div>";
+        str += "<\/div>";
+        $(".msgs").append(str); 
+    }
 }
 
-function addMsgBot(msg){
-    var str = "";
-    str += msg;
-    $(".BubbleBot").append(str);
-}
-
-function Timestamp(){
-    return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes(); 
+function TimestampUser(){
+    $('#sendBtn').click(function(){
+        return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes(); 
+    })
 }
 
 module.exports = script

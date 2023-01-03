@@ -15,9 +15,6 @@ class bot {
   constructor () {
     this.dict = []
     this.dict['Hallo'] = 'Hallo, wie kann ich dir bei der Studiensuche helfen?'
-    this.dict['Studium'] = ''
-    this.dict['Bereiche'] = 'Es gibt Studienfelder wie Technik, Sport, Wirtschaft, Informatik.' /**zusätzliche Themen hier noch einfügen */
-    this.dict['Stärken'] = 'Worin warst du denn immer gut, zum Beispiel in der Schule?'
     this.dict['Interessen'] = 'Was hat dich denn schon immer brennend interessiert?'
       this.dict['keine Interressen'] = 'Jede Person hat etwas das sie interessiert. Hast du denn schon einmal einen Orientierungstest gemacht'
         this.dict['Ergebniss'] = 'Nun hast du ja einen Überblick welche Bereiche dich stärker begeistern und welche nicht.'
@@ -115,9 +112,13 @@ class bot {
       }
     }
     /*
-     * Verarbeitung
+    var intents = require('./database.json')
+    var nachricht = 'ich will Bestellen'
+    nachricht = nachricht.toLowerCase()
+    for (var j = 0 ;j<intents.answers.length ;j++) {
+    if (nachricht.includes(intents.answers[j].intent)) {
+    console.log(intents.answers[j].answer)
     */
-
     var msg = '{"type": "msg", "name": "' + name + '", "msg":"' + inhalt + '"}'
     console.log('Send: ' + msg)
     this.client.con.sendUTF(msg)

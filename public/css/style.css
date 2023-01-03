@@ -123,15 +123,10 @@
     width:40px;
     object-fit: contain;
   }
-  .active{
-    visibility: visible;
-  }
-  .BubbleUser:onclick {
-    visibility: hidden;
+  .BubbleUser {
     float: right;
     overflow-y: scroll;
     min-width: 100px;
-    max-width: 700px;
     padding: 14px 18px;
     margin: 6px 8px; 
     border-radius: 16px 16px 0 16px;
@@ -143,9 +138,10 @@
   .BubbleBot {
     overflow-y: scroll;
     min-width: 100px;
+    height: auto;
     padding: 14px 18px;
     margin: 6px 8px; 
-    border-radius: 16px 16px 0 16px;
+    border-radius: 16px 16px 16px 0;
     align-self: flex-start;
     background-color: #5b5377;
     border: 1px solid #443f56;

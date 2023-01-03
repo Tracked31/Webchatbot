@@ -1,13 +1,15 @@
 {"answers":[
     {"intent": "Hallo", "answer": "Hallo, wie kann ich dir bei der Studiensuche helfen?"},
+    {"intent": "Studium", "answer": ""},
+    {"intent": "Stärken", "answer": "Worin warst du denn immer gut, zum Beispiel in der Schule?"},
     {"intent": "", "answer": ""},
     {"intent": "", "answer": ""},
     {"intent": "", "answer": ""},
     {"intent": "", "answer": ""},
     {"intent": "", "answer": ""},
-    {"intent": "", "answer": ""},
-    {"intent": "", "answer": ""},
-    {"intent": "", "answer": ""},
+
+
+    {"intent": "Bereiche", "answer": "Es gibt Studienfelder wie Technik, Sport, Wirtschaft, Informatik."},
     {"intent": "", "answer": ""},
     {"intent": "", "answer": ""},
     {"intent": "", "answer": ""},
