@@ -28,10 +28,8 @@ function addMsg(msg,type){
     if(type == 'self'){
         str += "<div class=\"bubbleWrapper\">";
         str += "<div class=\"inlineContainerUser\">";
+        str += "<img class=\"inlineIcon\" src=\"./images/Avatar_user.png\">";
         str += "<div class=\"BubbleUser\">";
-        str += "<span class=\"inlineIcon\">";
-        str += "<img src=\".\images\Avatar_user.png\">";
-        str += "<\/span>";
         str += msg;
         str += "<\/div>";
         str += "<\/div>",
@@ -41,22 +39,14 @@ function addMsg(msg,type){
     else{
         str += "<div class=\"bubbleWrapper\">";
         str += "<div class=\"inlineContainerBot\">";
+        str += "<img class=\"inlineIcon\" src=\"./images/boticon.png\">";
         str += "<div class=\"BubbleBot\">";
-        str += "<span class=\"inlineIcon\">";
-        str += "<img src=\".\images\boticon.png\">";
-        str += "<\/span>";
         str += msg;
         str += "<\/div>";
         str += "<\/div>";
         str += "<\/div>";
         $(".msgs").append(str); 
     }
-}
-
-function TimestampUser(){
-    $('#sendBtn').click(function(){
-        return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes(); 
-    })
 }
 
 module.exports = script

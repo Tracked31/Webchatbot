@@ -1,9 +1,12 @@
 'use strict'
 
+const send = require('send')
+
 var WebSocketClient = require('websocket').client
+var msg_handling = require('./msg_handling')
 
 /**
- * bot ist ein einfacher Websocket Chat Client
+ * bot  ist ein einfacher Websocket Chat Client
  */
 
 class bot {
@@ -13,11 +16,7 @@ class bot {
    * Bitte beachten Sie, dass die Server IP hardcodiert ist. Sie müssen sie umsetzten
    */
   constructor () {
-    this.dict = []
-    this.dict['suche'] = 'Wenn sie etwas suchen sind Sie hier falsch es geht um Drogen'
-    this.dict['rauchen'] = 'Rauchen ist eine schreckliche Sache.'
-    this.dict['trinken'] = 'Trinken kann man auch Wasser.'
-    this.dict['schlafen'] = 'Schlafen wirkt wie eine Droge ist aber gesund.'
+    this.name = 'Chatbot'
 
     /** Die Websocketverbindung
       */
@@ -69,7 +68,7 @@ class bot {
       */
       function joinGesp () {
         if (connection.connected) {
-          connection.sendUTF('{"type": "join", "name":"MegaBot"}')
+          connection.sendUTF('{"type": "join", "name":"Chatbot"}')
         }
       }
       joinGesp()
@@ -91,29 +90,13 @@ class bot {
    * nicht geschrieben haben
    * @param nachricht auf die der bot reagieren soll
   */
-  post (nachricht) {
-    var name = 'MegaBot'
-    var inhalt = 'Ich habe dich nicht verstanden wir wollten über Drogen reden'
-
-    for ( var i in this.dict) {
-      console.log(i)
-      console.log(this.dict[i])
-    }
-
-    for ( var i in this.dict) {
-      if (nachricht.includes(i)) {
-        inhalt = this.dict[i]
+  post (nachricht) {msg_handling(nachricht)
       }
-    }
-    /*
-     * Verarbeitung
-    */
-
+    send(inhalt){
     var msg = '{"type": "msg", "name": "' + name + '", "msg":"' + inhalt + '"}'
     console.log('Send: ' + msg)
     this.client.con.sendUTF(msg)
   }
-
 }
 
 module.exports = bot

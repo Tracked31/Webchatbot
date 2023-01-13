@@ -3,28 +3,45 @@
   overflow-y: auto;
   display: none;
 }
+html,
   body{
     background-image: url(../images/background6.webp);
+    height: 100%;
     background-color: rgb(245, 248, 248);
   }
-  #menu {
+  ul{
+    background-color: #123;
+    background-image: linear-gradient(to bottom, #0003, transparent);
+    box-shadow: 0 0 32px #0003;
+    font-weight: 300;
     list-style-type: none;
+    height: 60px;
+    width: 100%;
+    margin: auto;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
-    font-family: sans-serif;
+  }
+  ul a{
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-right: 32px;
+    padding-left: 32px;
+    display: block;
+    line-height: 60px;
+    text-decoration: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 21px;
+    color:#9ab;
+    transition: all .5s;
+    text-align: center;
+  }
+  ul a:hover{
+    color: #FFF;
   }
   li {
     float: left;
   }
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }    
   .center-screen {
     margin-top: 10px;   
     min-height: 60vh;
@@ -36,21 +53,25 @@
     text-align: center;
   }
   .lowerPart {
-    width: 800px;
-    height: 51px;
-    margin-left: 359px;
-    border: 0.5px solid #0d0d0d;
+    max-height: 51px;
+    margin-left: 227.5;
+    margin-right: 227.5;
     border-radius: 0 0 12px 12px;
-    outline: #0d0d0d;
+    display: flex;
+    justify-content: center;
    
     
   }
   #sendBtn{
+    /*
+    border-right: 0.5px solid #0d0d0d;
+    border-bottom:  0.5px solid #0d0d0d;
+    */
     font-size: 24px;
     border: 0;
     border-radius: 0 0 12px 0;
-    height: 51px;
-    width: 197px;
+    height: 50px;
+    width: 200px;
     cursor: pointer;
     outline: none;
     align-items: center;
@@ -75,9 +96,9 @@
   #sendBtn:hover {
     outline: 0;
   }
-  #msg{
-    height: 49px;
-    width: 599px;
+  #msg{ 
+    height: 50px;
+    width: 600px;
     font-size: larger;
     font-family: 'Roboto', sans-serif;
     display: inline-block;
@@ -88,6 +109,22 @@
     border-radius: 0 0 0 12px;
     outline: none;
     text-size-adjust: 20px;
+  }
+  #msg::-webkit-input-placeholder{
+    /* Chrome/Opera/Safari */
+    color: #FFFFFF;
+  }
+  #msg::-moz-placeholder{
+    /* Firefox 19+ */
+    color: #FFFFFF;
+  }
+  #msg:-moz-placeholder{
+    /* Firefox 18- */
+    color: #FFFFFF;
+  }
+  #msg:-ms-input-placeholder{
+    /* IE 10+ */
+    color: #FFFFFF;
   }
   .msgs{
     background-color: #fdfdfd;
@@ -119,14 +156,11 @@
     display: inline-flex;
     background-color: none;
   }
-  .inlineIcon {
-    width:40px;
-    object-fit: contain;
-  }
   .BubbleUser {
     float: right;
     overflow-y: scroll;
-    min-width: 100px;
+    width: auto;
+    height: auto;
     padding: 14px 18px;
     margin: 6px 8px; 
     border-radius: 16px 16px 0 16px;
@@ -137,7 +171,7 @@
   }
   .BubbleBot {
     overflow-y: scroll;
-    min-width: 100px;
+    width: auto;
     height: auto;
     padding: 14px 18px;
     margin: 6px 8px; 
@@ -146,4 +180,15 @@
     background-color: #5b5377;
     border: 1px solid #443f56;
     color: white;
+  }
+  .inlineIcon{
+    object-fit:contain;
+    width: 50px;
+  }
+  .footer{
+    position: fixed;
+    left: 0;
+    bottom: 10;
+    width: 100%;
+    text-align: right;
   }

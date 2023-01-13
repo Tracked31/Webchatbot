@@ -3,26 +3,36 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link href=".\css\style.css" rel="stylesheet"> 
+
+        <link href=".\css\bootstrap1.css" rel="stylesheet" media="screen" type="text/css">
+        <link href=".\css\bootstrap2.css" rel="stylesheet" media="screen" type="text/css">
+        <link href=".\css\style.css" rel="stylesheet" media="screen" type="text/css"> 
+
+        <script src=".\js\jquery_v3.1.1.js"></script>
         <script src=".\js\jquery.js"></script>
+        <script src=".\js\bootstrap.js"></script>
         <script src=".\js\scripts.js"></script>
     </head>
         <body>
-            <ul id="menu">
-                <li><a href=".\html\home.html">Home</a></li>
+            <ul>
+                <li><a href="#">Home</a></li>
                 <li><a href=".\index.html">Chatbot</a></li>
-                <li><a href=".\html\weiteres.html">Weiterführend</a></li>
-                <li><a href=".\html\contact.html">Kontakt</a></li>
+                <li><a href="#">Weiterführend</a></li>
+                <li><a style="background-image: none;" href="#">Kontakt</a></li>
+                <span class="line"></span>
             </ul>
             <div class="center-screen" id="module">
                 <div class="msgs">             
                 </div>
             </div>
             <div class="lowerPart">
-            <form id="chatForm">
-                <input id="msg" type="text" placeholder=" Schreib mir eine Nachricht..."/>
-                <button id="sendBtn">Send</button>
-            </form>
+                <form id="chatForm">
+                    <input id="msg" type="text" placeholder=" Schreib mir eine Nachricht..."/>
+                    <button id="sendBtn">Send</button>
+                </form>
+            </div>
+            <div class="footer">
+                <p made by Simon Saur></p>
             </div>
     </body>
 </html>

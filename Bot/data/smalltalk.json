@@ -1,0 +1,23 @@
+{
+    "Hallo!": [
+        "hi",
+        "hey",
+        "hei",
+        "hallo",
+        "servus",
+        "guten tag",
+        "moin"
+    ],
+    "Mir geht es sehr gut!":[
+        "wie fühlst du dich",
+        "wie geht es dir",
+        "wie gehts",
+        "wie geht'S"
+    ],
+    "Ich bin ein Chatbot, der dir Reiseorte in Bayern zeigen kann!":[
+        "was kannst du",
+        "was machst du",
+        "wobei hilfst du mir",
+        "wer bist du"
+        ]
+}
