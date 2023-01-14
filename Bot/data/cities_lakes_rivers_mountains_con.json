@@ -1,0 +1,33 @@
+{
+    "Stadt_Fluss":[{"Fluss": "Main", "Stadt": ["Bayreuth",
+                                               "Bamberg",
+                                               "Kitzingen",
+                                               "Würzburg"
+    ] },
+                   {"Fluss": "Donau", "Stadt": ["Deggendorf",
+                                                "Neuburg",
+                                                "Ingolstadt",
+                                                "Regensburg",
+                                                "Passau",
+                                                "Neu-Ulm"] },
+                   {"Fluss": "Isar", "Stadt": ["München",
+                                               "Dingolfing"
+                                               ] },
+                   {"Fluss": "Inn", "Stadt": ["Mühldorf",
+                                              "Rosenheim"] },
+                   {"Fluss": "Lech", "Stadt": ["Landsberg",
+                                               "Augsburg"]},
+                   {"Fluss": "Ilm", "Stadt": "Pfaffenhofen" }, 
+                   {"Fluss": "Pegnitz", "Stadt": ["Lauf",
+                                                  "Fürth"]},
+                   {"Fluss": "", "Stadt": "" } 
+],
+    "Stadt_See":[{"See": "Bodensee", "Stadt":"Lindau"},
+                 {"See": "Starnberger See", "Stadt":"Starnberg"}
+],
+    "Stadt_Berg":[{"Berg": "Bayerischer Wald", "Stadt": ["Deggendorf",
+                                                         "Passau",
+                                                         "Straubing"]},
+                  {"Berg": "Bayerische Alpen", "Stadt": "Garmisch-Partenkirchen"}
+]
+}

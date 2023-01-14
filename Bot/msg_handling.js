@@ -1,4 +1,4 @@
-const send = require('send')
+const send = require('./bot').send
 var smalltalk = require('./data/smalltalk.json')
 
 function reply(nachricht){

@@ -1,0 +1,35 @@
+{
+    "Flüsse":[
+        "Main",
+        "Donau",
+        "Isar",
+        "Inn",
+        "Altmühl",
+        "Amper",
+        "Lech",
+        "Ilm",
+        "Fränkische Saale",
+        "Iller",
+        "Wertach",
+        "Paar",
+        "Wörnitz",
+        "Pegnitz",
+        "Rott",
+        "Regen",
+        "Loisach"
+    ],
+    "Seen":[
+        "Bodensee",
+        "Chiemsee",
+        "Starnberger See",
+        "Ammersee",
+        "Königssee"
+    ],
+    "Berge":[   
+        "Bayerischer Wald",
+        "Tannheimer Berge",
+        "Bayerische Alpen",
+        "Wettersteingebirge",
+        "Oberpfalz"
+    ]
+}
