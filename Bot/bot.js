@@ -90,10 +90,10 @@ class bot {
    * nicht geschrieben haben
    * @param nachricht auf die der bot reagieren soll
   */
-  post (nachricht) {msg_handling(nachricht)
+  post (nachricht) {msg_handling(nachricht, this)
       }
     send(inhalt){
-    var msg = '{"type": "msg", "name": "' + name + '", "msg":"' + inhalt + '"}'
+    var msg = '{"type": "msg", "name": "' + this.name + '", "msg":"' + inhalt + '"}'
     console.log('Send: ' + msg)
     this.client.con.sendUTF(msg)
   }

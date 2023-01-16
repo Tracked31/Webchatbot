@@ -1,6 +1,6 @@
 /* Pakete die wir brauchen */
 
-var bot = require('./Bot/logic/bot.js')
+var bot = require('./Bot/bot.js')
 var express = require('express')
 
 var app = express()

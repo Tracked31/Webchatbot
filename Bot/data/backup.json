@@ -1,5 +1,5 @@
-[
-    "Es tut mir leid ich habe dich nicht verstanden!",
-    "Könntest du das bitte anders formulieren?",
-    ""
-]
+{
+    "key": "1", "name":"Es tut mir leid ich habe dich nicht verstanden!",
+    "key": "2", "name":"Könntest du das bitte anders formulieren?",
+    "key": "3", "name":"Für die von ihnen ausgewählten Werte konnte kein Ergebniss gefunden werden!"
+}

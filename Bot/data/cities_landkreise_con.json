@@ -1,12 +1,12 @@
 {
-    "Unterfranken":[
+    "unterfranken":[
         "Würzburg",
         "Aschaffenburg",
         "Schweinfurt",
         "Bad Kissingen",
         "Kitzingen"
     ],
-    "Mittelfranken":[
+    "mittelfranken":[
         "Nürnberg",
         "Fürth",
         "Erlangen",
@@ -17,7 +17,7 @@
         "Roth",
         "Herzogenrauch"
     ],
-    "Oberfranken":[
+    "oberfranken":[
         "Bamberg",
         "Bayreuth",
         "Hof",
@@ -26,14 +26,14 @@
         "Kulmbach",
         "Lichtenfels"
     ],
-    "Niederbayern":[
+    "niederbayern":[
         "Landshut",
         "Passau",
         "Straubing",
         "Deggendorf",
         "Dingolfing"
     ],
-    "Oberbayern":[
+    "oberbayern":[
         "München",
         "Ingolstadt",
         "Rosenheim",
@@ -64,14 +64,14 @@
         "Gauting",
         "Neufahrn"
     ],
-    "Oberpfalz":[
+    "oberpfalz":[
         "Regensburg",
         "Weiden",
         "Amberg",
         "Neumarkt",
         "Schwandorf"
     ],
-    "Schwaben":[
+    "schwaben":[
         "Augsburg",
         "Kempten",
         "Neu-Ulm",

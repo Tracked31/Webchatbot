@@ -2,8 +2,7 @@
     "Stadt_Fluss":[{"Fluss": "Main", "Stadt": ["Bayreuth",
                                                "Bamberg",
                                                "Kitzingen",
-                                               "Würzburg"
-    ] },
+                                               "Würzburg"] },
                    {"Fluss": "Donau", "Stadt": ["Deggendorf",
                                                 "Neuburg",
                                                 "Ingolstadt",
