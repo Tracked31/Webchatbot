@@ -29,13 +29,13 @@ function reply(nachricht, bot){
     bot.send('Möchtest du in eine Großstadt, Stadt oder Kleinstadt reisen?')
     switch(nachricht_low){
         case 'großstadt':
-            reply_landkreise_cities('Großstadt',nachricht_low,bot)
+            reply_landkreise_y('Großstadt',nachricht_low,bot)
             break
         case 'stadt':
-            reply_landkreise_cities('Stadt',nachricht_low,bot)
+            reply_landkreise_y('Stadt',nachricht_low,bot)
             break
         case 'kleinstadt':
-            reply_landkreise_cities('Kleinstadt',nachricht_low,bot)
+            reply_landkreise_y('Kleinstadt',nachricht_low,bot)
             break
         case '':
             wrong_param(bot)
@@ -66,15 +66,25 @@ function reply_landkreise(nachricht){
     return false
 }
 
-function reply_landkreise_cities(part,nachricht,bot){
-    bot.send('Möchtest du in einen bestimmten Landkreis reisen? Falls ja sag mir in welchen!')
+function reply_landkreise_y(part,nachricht,bot){
+    bot.send('Möchtest du in einen bestimmten Landkreis reisen?')
     switch(nachricht){
         case 'ja',landkreise:
-            const landkreis_akt = nachricht
+            reply_landkreise_cities(part,nachricht,bot)
+            break
+        case 'nein':
+            nature_reply(nachricht,bot)
+            break
+    }
+}
+function reply_landkreise_cities(part, nachricht,bot){
+    bot.send('In welchen Landkreis Bayerns möchtest du reisen?')
+    switch(nachricht){
+        case 'unterfranken':
             if(reply_landkreise(nachricht)== true){
                 for(var x in cities.part ){
                     for(var a in cities.part[x]){
-                        if(values.cities.part[x][a].includes(cities_landkreise_con.landkreis_akt)){
+                        if(values.cities.part[x][a].includes(cities_landkreise_con.unterfranken)){
                             return true}
                         if(true){
                             nature_reply(nachricht,bot)
@@ -83,10 +93,86 @@ function reply_landkreise_cities(part,nachricht,bot){
                 }
             }
             break
-        case 'nein':
-            nature_reply(nachricht,bot)
+        case 'mittelfranken':
+            if(reply_landkreise(nachricht)== true){
+                for(var x in cities.part ){
+                    for(var a in cities.part[x]){
+                        if(values.cities.part[x][a].includes(cities_landkreise_con.mittelfranken)){
+                            return true}
+                        if(true){
+                            nature_reply(nachricht,bot)
+                        } 
+                    }
+                }
+            }
+            break
+        case 'oberfranken':
+            if(reply_landkreise(nachricht)== true){
+                for(var x in cities.part ){
+                    for(var a in cities.part[x]){
+                        if(values.cities.part[x][a].includes(cities_landkreise_con.oberfranken)){
+                            return true}
+                        if(true){
+                            nature_reply(nachricht,bot)
+                        } 
+                    }
+                }
+            }
+            break
+        case 'niederbayern':
+            if(reply_landkreise(nachricht)== true){
+                for(var x in cities.part ){
+                    for(var a in cities.part[x]){
+                        if(values.cities.part[x][a].includes(cities_landkreise_con.niederbayern)){
+                            return true}
+                        if(true){
+                            nature_reply(nachricht,bot)
+                        } 
+                    }
+                }
+            }
+            break
+        case 'oberbayern':
+            if(reply_landkreise(nachricht)== true){
+                for(var x in cities.part ){
+                    for(var a in cities.part[x]){
+                        if(values.cities.part[x][a].includes(cities_landkreise_con.oberbayern)){
+                            return true}
+                        if(true){
+                            nature_reply(nachricht,bot)
+                        } 
+                    }
+                }
+            }
+            break
+        case 'oberpfalz':
+            if(reply_landkreise(nachricht)== true){
+                for(var x in cities.part ){
+                    for(var a in cities.part[x]){
+                        if(values.cities.part[x][a].includes(cities_landkreise_con.oberpfalz)){
+                            return true}
+                        if(true){
+                            nature_reply(nachricht,bot)
+                        } 
+                    }
+                }
+            }
+            break
+        case 'schwaben':
+            if(reply_landkreise(nachricht)== true){
+                for(var x in cities.part ){
+                    for(var a in cities.part[x]){
+                        if(values.cities.part[x][a].includes(cities_landkreise_con.schwaben)){
+                            return true}
+                        if(true){
+                            nature_reply(nachricht,bot)
+                        } 
+                    }
+                }
+            }
             break
     }
+
 }
 
 function nature_reply(nachricht,bot){
