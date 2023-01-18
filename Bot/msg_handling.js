@@ -19,6 +19,12 @@ const { values } = require('lodash')
         ->ja: Überprüfung ??
     -Ausgabe der Stadt als Reiseziel
 */
+var city_size = []
+var landkreis_y_n = []
+var landkreis_akt = []
+var nature_q = []
+var l_r_m_reply = []
+
 function reply(nachricht, bot){
     var nachricht_low = nachricht.toLowerCase()
 
@@ -26,20 +32,11 @@ function reply(nachricht, bot){
         return
     }
 
-    bot.send('Möchtest du in eine Großstadt, Stadt oder Kleinstadt reisen?')
-    switch(nachricht_low){
-        case 'großstadt':
-            reply_landkreise_y('Großstadt',nachricht_low,bot)
-            break
-        case 'stadt':
-            reply_landkreise_y('Stadt',nachricht_low,bot)
-            break
-        case 'kleinstadt':
-            reply_landkreise_y('Kleinstadt',nachricht_low,bot)
-            break
-        case '':
-            wrong_param(bot)
-            break
+    if(city_size.includes(['großstadt', 'stadt','kleinstadt'])){
+        reply_landkreise_y(city_size, bot)}
+    else{
+        bot.send('Möchtest du in eine Großstadt, Stadt oder Kleinstadt reisen?')
+        city_size = nachricht_low
     }
 }
 
@@ -66,179 +63,116 @@ function reply_landkreise(nachricht){
     return false
 }
 
-function reply_landkreise_y(part,nachricht,bot){
-    bot.send('Möchtest du in einen bestimmten Landkreis reisen?')
-    switch(nachricht){
-        case 'ja',landkreise:
-            reply_landkreise_cities(part,nachricht,bot)
-            break
-        case 'nein':
-            nature_reply(nachricht,bot)
-            break
+function reply_landkreise_y(city_size,bot){
+    if(landkreis_y_n.includes(['ja', 'nein'])){
+        switch(landkreis_y_n){
+            case 'ja':
+                reply_landkreise_cities(city_size,nachricht,bot)
+                break
+            case 'nein':
+                nature_reply(bot)
+                break
+        }
+    }
+    else{
+        bot.send('Möchtest du in einen bestimmten Landkreis reisen?')
+        landkreis_y_n = nachricht
     }
 }
-function reply_landkreise_cities(part, nachricht,bot){
-    bot.send('In welchen Landkreis Bayerns möchtest du reisen?')
-    switch(nachricht){
-        case 'unterfranken':
-            if(reply_landkreise(nachricht)== true){
-                for(var x in cities.part ){
-                    for(var a in cities.part[x]){
-                        if(values.cities.part[x][a].includes(cities_landkreise_con.unterfranken)){
-                            return true}
-                        if(true){
-                            nature_reply(nachricht,bot)
-                        } 
-                    }
+function reply_landkreise_cities(city_size, nachricht,bot){
+    if(landkreis_akt.includes(['unterfranken', 'mittelfranken', 'oberfranken','niederbayern','oberbayern','oberpfalz','schwaben'])){
+        if(reply_landkreise(landkreis_akt) == true){
+            for(var x in cities.city_size){
+                for(var a in cities.city_size[x]){
+                    if(values.cities.city_size[x][a].includes(cities_landkreise_con.landkreis_akt)){
+                        return true}
+                    if(true){
+                        nature_reply(nachricht,bot)
+                    } 
                 }
             }
-            break
-        case 'mittelfranken':
-            if(reply_landkreise(nachricht)== true){
-                for(var x in cities.part ){
-                    for(var a in cities.part[x]){
-                        if(values.cities.part[x][a].includes(cities_landkreise_con.mittelfranken)){
-                            return true}
-                        if(true){
-                            nature_reply(nachricht,bot)
-                        } 
-                    }
-                }
-            }
-            break
-        case 'oberfranken':
-            if(reply_landkreise(nachricht)== true){
-                for(var x in cities.part ){
-                    for(var a in cities.part[x]){
-                        if(values.cities.part[x][a].includes(cities_landkreise_con.oberfranken)){
-                            return true}
-                        if(true){
-                            nature_reply(nachricht,bot)
-                        } 
-                    }
-                }
-            }
-            break
-        case 'niederbayern':
-            if(reply_landkreise(nachricht)== true){
-                for(var x in cities.part ){
-                    for(var a in cities.part[x]){
-                        if(values.cities.part[x][a].includes(cities_landkreise_con.niederbayern)){
-                            return true}
-                        if(true){
-                            nature_reply(nachricht,bot)
-                        } 
-                    }
-                }
-            }
-            break
-        case 'oberbayern':
-            if(reply_landkreise(nachricht)== true){
-                for(var x in cities.part ){
-                    for(var a in cities.part[x]){
-                        if(values.cities.part[x][a].includes(cities_landkreise_con.oberbayern)){
-                            return true}
-                        if(true){
-                            nature_reply(nachricht,bot)
-                        } 
-                    }
-                }
-            }
-            break
-        case 'oberpfalz':
-            if(reply_landkreise(nachricht)== true){
-                for(var x in cities.part ){
-                    for(var a in cities.part[x]){
-                        if(values.cities.part[x][a].includes(cities_landkreise_con.oberpfalz)){
-                            return true}
-                        if(true){
-                            nature_reply(nachricht,bot)
-                        } 
-                    }
-                }
-            }
-            break
-        case 'schwaben':
-            if(reply_landkreise(nachricht)== true){
-                for(var x in cities.part ){
-                    for(var a in cities.part[x]){
-                        if(values.cities.part[x][a].includes(cities_landkreise_con.schwaben)){
-                            return true}
-                        if(true){
-                            nature_reply(nachricht,bot)
-                        } 
-                    }
-                }
-            }
-            break
+        }
     }
-
+    else{
+        bot.send('In welchen Landkreis Bayerns möchtest du reisen?')
+        landkreis_akt = nachricht
+    }
 }
 
 function nature_reply(nachricht,bot){
-    bot.send('Möchtest du das in die Stadt in der Nähe eines Gewässers oder Bergen liegt?')
-    switch(nachricht){
-        case 'ja':
-            lake_river_mountain_reply(nachricht,bot)
-            break
-        case 'nein':
-            out_dest()
-            break
+    if(nature_q.includes(['ja', 'nein'])){
+        switch(nature_q){
+            case 'ja':
+                lake_river_mountain_reply(nachricht,bot)
+                break
+            case 'nein':
+                out_dest()
+                break
+        }
+    }
+    else{
+        bot.send('Möchtest du das in die Stadt in der Nähe eines Gewässers oder Bergen liegt?')
+        nature_q = nachricht
     }
 }
 function lake_river_mountain_reply(nachricht,bot){
-    bot.send('Soll die Stadt an einem Fluss, See oder Berg liegen?')
-    switch(nachricht){
-        case'fluss':
-            for(var x in cities.part ){
-                for(var a in cities.part[x]){
-                    if(values.cities.part[x][a].includes(lake_river_mountain_con.Stadt_Fluss.nachricht
-                        )){
-                            if(values.cities.part[x][a].includes(cities_landkreise_con.landkreis_akt)==true){
-                                return true
+    if(l_r_m_reply.includes(['fluss', 'see','berg'])){
+        switch(l_r_m_reply){
+            case'fluss':
+                for(var x in cities.part ){
+                    for(var a in cities.part[x]){
+                        if(values.cities.part[x][a].includes(lake_river_mountain_con.Stadt_Fluss.nachricht
+                            )){
+                                if(values.cities.part[x][a].includes(cities_landkreise_con.landkreis_akt)==true){
+                                    return true
+                                }
                             }
-                        }
-                    if(true){
-                        out_dest()
-                    } 
-                    
+                        if(true){
+                            out_dest()
+                        } 
+                        
+                    }
                 }
-            }
-            break
-        case 'see':
-            for(var x in cities.part ){
-                for(var a in cities.part[x]){
-                    if(values.cities.part[x][a].includes(lake_river_mountain_con.Stadt_See.nachricht
-                        )){
-                            if(values.cities.part[x][a].includes(cities_landkreise_con.landkreis_akt)==true){
-                                return true
+                break
+            case 'see':
+                for(var x in cities.part ){
+                    for(var a in cities.part[x]){
+                        if(values.cities.part[x][a].includes(lake_river_mountain_con.Stadt_See.nachricht
+                            )){
+                                if(values.cities.part[x][a].includes(cities_landkreise_con.landkreis_akt)==true){
+                                    return true
+                                }
                             }
-                        }
-                    if(true){
-                        out_dest()
-                    } 
-                    
+                        if(true){
+                            out_dest()
+                        } 
+                        
+                    }
                 }
-            }
-            out_dest()
-            break
-        case 'berg':
-            for(var x in cities.part ){
-                for(var a in cities.part[x]){
-                    if(values.cities.part[x][a].includes(lake_river_mountain_con.Stadt_Berg.nachricht
-                        )){
-                            if(values.cities.part[x][a].includes(cities_landkreise_con.nachricht)==true){
-                                return true
+                out_dest()
+                break
+            case 'berg':
+                for(var x in cities.part ){
+                    for(var a in cities.part[x]){
+                        if(values.cities.part[x][a].includes(lake_river_mountain_con.Stadt_Berg.nachricht
+                            )){
+                                if(values.cities.part[x][a].includes(cities_landkreise_con.nachricht)==true){
+                                    return true
+                                }
                             }
-                        }
-                    if(true){
-                        out_dest()
-                    } 
-                    
+                        if(true){
+                            out_dest()
+                        } 
+                        
+                    }
                 }
-            }
-            out_dest()
-            break
+                out_dest()
+                break
+        }
+    }
+    else{
+        bot.send('Soll die Stadt an einem Fluss, See oder Berg liegen?')
+        l_r_m_reply = nachricht  
     }
 }
 function wrong_param(bot){
