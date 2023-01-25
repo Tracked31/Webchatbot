@@ -14,10 +14,13 @@
         "wie gehts",
         "wie geht'S"
     ],
-    "Ich bin ein Chatbot, der dir Städte als Reiseorte in Bayern zeigen kann!":[
+    "Ich bin ein Chatbot, der dir Städte als Reiseorte in Bayern zeigen kann! Wenn sie fortfahren möchten, antworten Sie mit einer 1!":[
         "was kannst du",
         "was machst du",
         "wobei hilfst du mir",
         "wer bist du"
-        ]
+        ],
+    "Möchtest du in eine Großstadt, Stadt oder Kleinstadt reisen?":[
+        "1"
+    ]
 }
