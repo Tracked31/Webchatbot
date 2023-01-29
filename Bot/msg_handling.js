@@ -8,6 +8,7 @@ var lake_river_mountain_con = require('./data/cities_lakes_rivers_mountains_con.
 var landkreise = require('./data/landkreise.json')
 var cities_landkreise_con = require('./data/cities_landkreise_con.json')
 var fs = require('fs')
+const { values } = require('lodash')
 
 
 
@@ -217,6 +218,7 @@ function lake_river_mountain_reply(nachricht,bot){
     }
     }
 }
+
 function check_river_mountain_sea(nachricht, part){
     for(var x in cities.temp_city_size ){
         for(var a in cities.temp_city_size[x]){
@@ -238,7 +240,37 @@ function wrong_param(bot){
 }
 
 function out_dest(bot){
-    bot.send('fertig')
+    var temp_city_size = get_temp_city_size()
+    var temp_landkreis_akt = get_temp_landkreis_akt()
+    var temp_l_r_m_reply = get_temp_l_r_m_reply()
+    if(temp_city_size != null && temp_landkreis_akt == null && temp_l_r_m_reply == null){
+        for(var a in cities){
+            for(var b in cities[a]){
+                if(nachricht.includes(cities[a][b])){
+                    bot.send(a)
+                }}}
+    }
+    else if(temp_city_size != null && temp_landkreis_akt != null && temp_l_r_m_reply == null){
+        for(var x in cities.temp_city_size){
+            for(var a in cities.temp_city_size[x]){
+                if(values.cities.temp_city_size[x][a].includes(cities_landkreise_con.temp_landkreis_akt)){
+                    bot.send(values)
+                } 
+            }
+        }
+    }
+    else if(temp_city_size != null && temp_landkreis_akt != null && temp_l_r_m_reply != null){
+        for(var x in cities.temp_city_size ){
+            for(var a in cities.temp_city_size[x]){
+                if(values.cities.temp_city_size[x][a].includes(lake_river_mountain_con.part.nachricht
+                    )){
+                        if(values.cities.temp_city_size[x][a].includes(cities_landkreise_con.temp_landkreis_akt)==true){
+                            bot.send(values)
+                        }
+                    }
+            }
+        }
+    }
 }
 
 function get_temp_city_size(){
