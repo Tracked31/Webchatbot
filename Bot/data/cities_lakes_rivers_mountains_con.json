@@ -1,5 +1,5 @@
 {
-    "Stadt_Fluss":[{"Fluss": "Main", "Stadt": ["Bayreuth",
+    "fluss":[{"Fluss": "Main", "Stadt": ["Bayreuth",
                                                "Bamberg",
                                                "Kitzingen",
                                                "Würzburg"] },
@@ -21,10 +21,10 @@
                                                   "Fürth"]},
                    {"Fluss": "", "Stadt": "" } 
 ],
-    "Stadt_See":[{"See": "Bodensee", "Stadt":"Lindau"},
+    "see":[{"See": "Bodensee", "Stadt":"Lindau"},
                  {"See": "Starnberger See", "Stadt":"Starnberg"}
 ],
-    "Stadt_Berg":[{"Berg": "Bayerischer Wald", "Stadt": ["Deggendorf",
+    "berg":[{"Berg": "Bayerischer Wald", "Stadt": ["Deggendorf",
                                                          "Passau",
                                                          "Straubing"]},
                   {"Berg": "Bayerische Alpen", "Stadt": "Garmisch-Partenkirchen"}

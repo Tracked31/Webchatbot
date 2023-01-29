@@ -195,7 +195,7 @@ function lake_river_mountain_reply(nachricht,bot){
     if(temp_l_r_m_reply == 'fluss' || temp_l_r_m_reply == 'see' || temp_l_r_m_reply == 'berg'){
         part = temp_l_r_m_reply
         if(check_river_mountain_sea(nachricht,part) == true){
-            out_dest()
+            out_dest(bot)
         }
     }
     else{
@@ -210,7 +210,10 @@ function lake_river_mountain_reply(nachricht,bot){
         data = JSON.stringify(data)
         fs.writeFileSync('./Bot/data/temp_data.json', data)
         if(check_river_mountain_sea(nachricht,part) == true){
-            out_dest()
+            out_dest(bot)
+        }
+        if(check_landkreise_cities == false){
+            wrong_param(bot)
         }
     }
     else{
@@ -262,7 +265,7 @@ function out_dest(bot){
     else if(temp_city_size != null && temp_landkreis_akt != null && temp_l_r_m_reply != null){
         for(var x in cities.temp_city_size ){
             for(var a in cities.temp_city_size[x]){
-                if(values.cities.temp_city_size[x][a].includes(lake_river_mountain_con.part.nachricht
+                if(values.cities.temp_city_size[x][a].includes(lake_river_mountain_con.temp_l_r_m_reply
                     )){
                         if(values.cities.temp_city_size[x][a].includes(cities_landkreise_con.temp_landkreis_akt)==true){
                             bot.send(values)
