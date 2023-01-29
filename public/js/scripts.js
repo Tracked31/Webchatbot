@@ -1,3 +1,6 @@
+// made by Simon Saur 
+// Matrikelnummer: 22111149
+
 var socket = new WebSocket('ws://localhost:8181/', 'chat');
             var name = 'User'
             socket.onopen = function () {

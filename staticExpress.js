@@ -1,7 +1,9 @@
-/* Pakete die wir brauchen */
+// made by Simon Saur 
+// Matrikelnummer: 22111149
 
 var bot = require('./Bot/bot.js')
 var express = require('express')
+var fs = require('fs')
 
 var app = express()
 
@@ -63,12 +65,14 @@ wss.on('request', function (request) {
 
     switch (data.type) {
       case 'join':
+        
         // Wenn der Typ join ist füge ich den Client einfach unserer Liste hinzu
         connections[data.name] = connection
         msg = '{"type": "join", "names": ["' + Object.keys(connections).join('","') + '"]}'
         if (myBot.connected === false) {
           myBot.connect()
         }
+        reset_temp()
 
         break
       case 'msg':
@@ -93,3 +97,15 @@ wss.on('request', function (request) {
     }
   })
 })
+
+function reset_temp(){
+  var data = {
+      "city_size":null,
+      "landkreis_y_n":null,
+      "landkreis_akt":null,
+      "nature_q":null,
+      "l_r_m_reply":null
+  }
+  data = JSON.stringify(data)
+  fs.writeFileSync('./Bot/data/temp_data.json', data)
+}
