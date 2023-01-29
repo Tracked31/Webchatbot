@@ -108,15 +108,14 @@ function reply_landkreise_cities(nachricht,bot){
     var temp_city_size = get_temp_city_size()
     var temp_landkreis_y_n = get_temp_landkreis_y_n()
     var temp_landkreis_akt = get_temp_landkreis_akt()
-    if(temp_landkreis_akt == 'unterfranken' || temp_landkreis_akt == 'mittelfranken' || temp_landkreis_akt == 'oberfranken' 
-        || temp_landkreis_akt == 'niederbayern' || temp_landkreis_akt == 'oberbayern' || temp_landkreis_akt == 'oberpfalz'|| temp_landkreis_akt == 'schwaben'){
+    if(temp_landkreis_akt == 'unterfranken' || temp_landkreis_akt == 'mittelfranken' || temp_landkreis_akt == 'oberfranken' || temp_landkreis_akt == 'niederbayern' || temp_landkreis_akt == 'oberbayern' || temp_landkreis_akt == 'oberpfalz'|| temp_landkreis_akt == 'schwaben'){
         if(check_landkreise_cities == true){
             nature_reply(nachricht,bot)
             }
     }
     else{
-        if(nachricht == 'unterfranken' || nachricht == 'mittelfranken' || nachricht == 'oberfranken' || nachricht == 'niederbayern'
-            || nachricht == 'oberbayern' || nachricht == 'oberpfalz'|| nachricht == 'schwaben'){
+        nachricht = nachricht.toLowerCase()
+        if(nachricht == 'unterfranken' || nachricht == 'mittelfranken' || nachricht == 'oberfranken' || nachricht == 'niederbayern' || nachricht == 'oberbayern' || nachricht == 'oberpfalz'|| nachricht == 'schwaben'){
         var data = {
             "city_size":temp_city_size,
             "landkreis_y_n":temp_landkreis_y_n,
@@ -223,11 +222,10 @@ function lake_river_mountain_reply(nachricht,bot){
 }
 
 function check_river_mountain_sea(nachricht, part){
-    for(var x in cities.temp_city_size ){
+    for(var x in cities.temp_city_size){
         for(var a in cities.temp_city_size[x]){
-            if(values.cities.temp_city_size[x][a].includes(lake_river_mountain_con.part.nachricht
-                )){
-                    if(values.cities.temp_city_size[x][a].includes(cities_landkreise_con.temp_landkreis_akt)==true){
+            if(values.cities.temp_city_size[x][a].includes(lake_river_mountain_con.part.nachricht)){
+                    if(values.cities.temp_city_size[x][a].includes(cities_landkreise_con.temp_landkreis_akt)){
                         return true
                     }
                 }
@@ -267,7 +265,7 @@ function out_dest(bot){
             for(var a in cities.temp_city_size[x]){
                 if(values.cities.temp_city_size[x][a].includes(lake_river_mountain_con.temp_l_r_m_reply
                     )){
-                        if(values.cities.temp_city_size[x][a].includes(cities_landkreise_con.temp_landkreis_akt)==true){
+                        if(values.cities.temp_city_size[x][a].includes(cities_landkreise_con.temp_landkreis_akt)){
                             bot.send(values)
                         }
                     }
