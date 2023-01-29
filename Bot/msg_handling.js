@@ -139,9 +139,10 @@ function reply_landkreise_cities(nachricht,bot){
 }
 
 function check_landkreise_cities(){
+    var temp_city_size = get_temp_city_size()
     for(var x in cities.temp_city_size){
         for(var a in cities.temp_city_size[x]){
-            if(values.cities.temp_city_size[x][a].includes(cities_landkreise_con.temp_landkreis_akt)){
+            if(cities_landkreise_con.temp_landkreis_akt.includes(values.cities.temp_city_size[x][a])){
                 return true
             } 
         }
@@ -154,16 +155,18 @@ function nature_reply(nachricht,bot){
     var temp_landkreis_y_n = get_temp_landkreis_y_n()
     var temp_landkreis_akt = get_temp_landkreis_akt()
     var temp_nature_q = get_temp_nature_q()
-    if(temp_nature_q == 'ja' || temp_nature_q == 'nein'){
+    if(temp_nature_q == 'ja' || temp_nature_q == 'niemals'){
         if(temp_nature_q == 'ja'){
             lake_river_mountain_reply(nachricht,bot)
         }
-        if(temp_nature_q == 'nein'){
-            out_dest(bot)
+        if(temp_nature_q == 'niemals'){
+            if(out_dest(bot)== true){
+                return
+            } 
         }
     }
     else{
-        if(nachricht == 'ja' || nachricht == 'nein'){
+        if(nachricht == 'ja' || nachricht == 'niemals'){
             var data = {
                 "city_size":temp_city_size,
                 "landkreis_y_n":temp_landkreis_y_n,
@@ -176,12 +179,14 @@ function nature_reply(nachricht,bot){
             if(nachricht == 'ja'){
                 lake_river_mountain_reply(nachricht,bot)
             }
-            if(nachricht == 'nein'){
-                out_dest(bot)
+            if(nachricht == 'niemals'){
+                if(out_dest(bot)== true){
+                    return
+                } 
             }
         }
         else{
-            bot.send('Möchtest du das die Stadt in der Nähe eines Gewässers oder Bergen liegt?')
+            bot.send('Möchtest du das die Stadt in der Nähe eines Gewässers oder Bergen liegt?(ja, niemals)')
         }
     }
 }
@@ -194,10 +199,13 @@ function lake_river_mountain_reply(nachricht,bot){
     if(temp_l_r_m_reply == 'fluss' || temp_l_r_m_reply == 'see' || temp_l_r_m_reply == 'berg'){
         part = temp_l_r_m_reply
         if(check_river_mountain_sea(nachricht,part) == true){
-            out_dest(bot)
+            if(out_dest(bot)== true){
+                return
+            } 
         }
     }
     else{
+        nachricht = nachricht.toLowerCase()
         if(nachricht == 'fluss' || nachricht == 'see' || nachricht == 'berg'){
         var data = {
             "city_size":temp_city_size,
@@ -208,10 +216,13 @@ function lake_river_mountain_reply(nachricht,bot){
         }
         data = JSON.stringify(data)
         fs.writeFileSync('./Bot/data/temp_data.json', data)
+        part = temp_l_r_m_reply
         if(check_river_mountain_sea(nachricht,part) == true){
-            out_dest(bot)
+            if(out_dest(bot)== true){
+                return
+            } 
         }
-        if(check_landkreise_cities == false){
+        if(check_river_mountain_sea(nachricht,part) == false){
             wrong_param(bot)
         }
     }
@@ -222,12 +233,13 @@ function lake_river_mountain_reply(nachricht,bot){
 }
 
 function check_river_mountain_sea(nachricht, part){
+    var temp_city_size = get_temp_city_size()
+    var temp_landkreis_akt = get_temp_landkreis_akt()
     for(var x in cities.temp_city_size){
         for(var a in cities.temp_city_size[x]){
-            if(values.cities.temp_city_size[x][a].includes(lake_river_mountain_con.part.nachricht)){
-                    if(values.cities.temp_city_size[x][a].includes(cities_landkreise_con.temp_landkreis_akt)){
-                        return true
-                    }
+            if(lake_river_mountain_con.part.nachricht.includes(values.cities.temp_city_size[x][a]) && 
+                cities_landkreise_con.temp_landkreis_akt.includes(values.cities.temp_city_size[x][a])){
+                    return true
                 }
         }
     }
@@ -247,15 +259,17 @@ function out_dest(bot){
     if(temp_city_size != null && temp_landkreis_akt == null && temp_l_r_m_reply == null){
         for(var a in cities){
             for(var b in cities[a]){
-                if(nachricht.includes(cities[a][b])){
+                if(temp_city_size.includes(cities[a][b])){
                     bot.send(a)
+                    return true
                 }}}
     }
     else if(temp_city_size != null && temp_landkreis_akt != null && temp_l_r_m_reply == null){
         for(var x in cities.temp_city_size){
             for(var a in cities.temp_city_size[x]){
-                if(values.cities.temp_city_size[x][a].includes(cities_landkreise_con.temp_landkreis_akt)){
+                if(cities_landkreise_con.temp_landkreis_akt.includes(values.cities.temp_city_size[x][a])){
                     bot.send(values)
+                    return true
                 } 
             }
         }
@@ -263,15 +277,15 @@ function out_dest(bot){
     else if(temp_city_size != null && temp_landkreis_akt != null && temp_l_r_m_reply != null){
         for(var x in cities.temp_city_size ){
             for(var a in cities.temp_city_size[x]){
-                if(values.cities.temp_city_size[x][a].includes(lake_river_mountain_con.temp_l_r_m_reply
-                    )){
-                        if(values.cities.temp_city_size[x][a].includes(cities_landkreise_con.temp_landkreis_akt)){
+                if(lake_river_mountain_con.part.nachricht.includes(values.cities.temp_city_size[x][a]) && 
+                cities_landkreise_con.temp_landkreis_akt.includes(values.cities.temp_city_size[x][a])){
                             bot.send(values)
-                        }
+                            return true
                     }
             }
         }
     }
+    return false
 }
 
 function get_temp_city_size(){
