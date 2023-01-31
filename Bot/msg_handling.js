@@ -8,6 +8,7 @@ var lake_river_mountain_con = require('./data/cities_lakes_rivers_mountains_con.
 var cities_landkreise_con = require('./data/cities_landkreise_con.json')
 var fs = require('fs')
 const { values } = require('lodash')
+const { element } = require('prop-types')
 
 
 
@@ -105,7 +106,7 @@ function reply_landkreise_cities(nachricht,bot){
     var temp_landkreis_y_n = get_temp_landkreis_y_n()
     var temp_landkreis_akt = get_temp_landkreis_akt()
     if(temp_landkreis_akt == 'unterfranken' || temp_landkreis_akt == 'mittelfranken' || temp_landkreis_akt == 'oberfranken' || temp_landkreis_akt == 'niederbayern' || temp_landkreis_akt == 'oberbayern' || temp_landkreis_akt == 'oberpfalz'|| temp_landkreis_akt == 'schwaben'){
-        if(check_landkreise_cities == true){
+        if(check_landkreise_cities() == true){
             nature_reply(nachricht,bot)
             }
     }
@@ -121,10 +122,10 @@ function reply_landkreise_cities(nachricht,bot){
         }
         data = JSON.stringify(data)
         fs.writeFileSync('./Bot/data/temp_data.json', data)
-        if(check_landkreise_cities == true){
+        if(check_landkreise_cities() == true){
             nature_reply(nachricht,bot)
         }
-        if(check_landkreise_cities == false){
+        if(check_landkreise_cities() == false){
             wrong_param(bot)
         }
     }
@@ -259,11 +260,12 @@ function check_landkreise_cities(){
     if(temp_landkreis_akt == 'schwaben'){
         part_landreis = cities_landkreise_con.Schwaben
     }
-    for(var x in part_cities){
-        for(var a in part_cities[x]){
-            if(part_landreis.includes(values.part_cities[x][a])){
-                return true
-            } 
+    
+    for(let x=0; x< part_cities.length; x++){
+        for(let j=0; j< part_landreis.length; j++){
+                if(part_cities[x] === part_landreis[j]){
+                    return true
+                }
         }
     }
     return false
@@ -318,24 +320,28 @@ function check_river_mountain_sea(){
     if(temp_l_r_m_reply == 'berg'){
         part_nature = lake_river_mountain_con.Berg
     }
-    for(var x in part_cities){
-        for(var a in part_cities[x]){
-            if(part_nature.includes(values.part_cities[x][a]) && 
-                part_landreis.includes(values.part_cities[x][a])){
+    
+    for(let x=0; x< part_cities.length; x++){
+        for(let j=0; j< part_landreis.length; j++){
+            for(let b=0; b<part_nature.length; b++){
+                if(part_cities[x] === part_landreis[j] && part_cities[x] === part_nature[b] ){
                     return true
                 }
+            }
         }
     }
+    return false
 }
 
 function wrong_param(bot){
     //gibt zufällige Nachricht zurück wenn Bot nichts versteht
 
-    const key = backup.key(name)
-    const randIndex = Math.floor(Math.random() * key.length)
-    const randKey = key[randIndex]
-    const name = name[randKey]
-    bot.send(name)
+    var output_backup = []
+    var randIndex = Math.floor(Math.random() * backup.Backup)
+    var item = backup.Backup[randIndex]
+    output_backup.push(item)
+    bot.send(output_backup)
+    return
 }
 
 function out_dest(bot){
@@ -393,7 +399,7 @@ function out_dest(bot){
         }
         if(part_cities.length > 5){
             var output = []
-            for(let i=0; i>5; i++){
+            for(let i=0; i<5; i++){
             var randIndex = Math.floor(Math.random() * part_cities.length)
             var item = part_cities[randIndex]
             output.push(item)
@@ -401,33 +407,114 @@ function out_dest(bot){
             bot.send("Das Reiseziel/-e ist: " + output)
             return true
         }
-        if(a.length == 5 || a.length < 5){
-            bot.send("Das Reiseziel/-e ist: " + a)
-            return true
-        }
     }
     else if(temp_city_size != null && temp_landkreis_akt != null && temp_l_r_m_reply == null){
-        for(var x in part_cities){
-            for(var a in part_cities[x]){
-                if(part_landreis.includes(values.part_cities[x][a])){
-                    bot.send("Das Reiseziel/-e ist: " + a)
-                    return true
-                } 
-            }
-        }
-    }
-    else if(temp_city_size != null && temp_landkreis_akt != null && temp_l_r_m_reply != null){
-        for(var x in part_cities){
-            for(var a in part_cities[x]){
-                if(part_nature.includes(values.part_cities[x][a]) && 
-                part_landreis.includes(values.cities.part_cities[x][a])){
-                            bot.send("Das Reiseziel/-e ist: " + a)
+             
+        for(let x=0; x< part_cities.length; x++){
+            for(let j=0; j< part_landreis.length; j++){
+                    if(part_cities[x] === part_landreis[j]){
+                        var same = []
+                        if(true){
+                            same.push(part_cities[x])
+                        }
+                        if(same.length == 5 || same.length < 5){
+                            bot.send("Das Reiseziel/-e ist: " + same)
                             return true
+                        }
+                        if(same.length > 5){
+                            var output = []
+                            for(let i=0; i<5; i++){
+                            var randIndex = Math.floor(Math.random() * same.length)
+                            var item = same[randIndex]
+                            output.push(item)
+                            }
+                            bot.send("Das Reiseziel/-e ist: " + output)
+                            return true
+                        }
                     }
             }
         }
     }
-    return false
+    else if(temp_city_size != null && temp_landkreis_akt != null && temp_l_r_m_reply != null){
+        for(let x=0; x< part_cities.length; x++){
+            for(let j=0; j< part_landreis.length; j++){
+                for(let b=0; b<part_nature.length; b++){
+                    if(part_cities[x] === part_landreis[j] && part_cities[x] === part_nature[b] ){
+                        var same_2 = []
+                        if(true){
+                            same_2.push(part_cities[x])
+                        }
+                        if(same_2.length == 5 || same_2.length < 5){
+                            bot.send("Das Reiseziel/-e ist: " + same_2)
+                            return true
+                        }
+                        if(same_2.length > 5){
+                            var output = []
+                            for(let i=0; i<5; i++){
+                            var randIndex = Math.floor(Math.random() * same_2.length)
+                            var item = same_2[randIndex]
+                            output.push(item)
+                            }
+                            bot.send("Das Reiseziel/-e ist: " + output)
+                            return true
+                        }
+                    }
+                }
+            }}
+        }
+    else if(temp_city_size != null && temp_landkreis_akt != null && temp_l_r_m_reply != null){
+        for(let x=0; x< part_cities.length; x++){
+            for(let j=0; j< part_landreis.length; j++){
+                for(let b=0; b<part_nature.length; b++){
+                    if(part_cities[x] === part_landreis[j] && part_cities[x] === part_nature[b] ){
+                        var same_2 = []
+                        if(true){
+                            same_2.push(part_cities[x])
+                        }
+                        if(same_2.length == 5 || same_2.length < 5){
+                            bot.send("Das Reiseziel/-e ist: " + same_2)
+                            return true
+                        }
+                        if(same_2.length > 5){
+                            var output = []
+                            for(let i=0; i<5; i++){
+                            var randIndex = Math.floor(Math.random() * same_2.length)
+                            var item = same_2[randIndex]
+                            output.push(item)
+                            }
+                            bot.send("Das Reiseziel/-e ist: " + output)
+                            return true
+                        }
+                    }
+                }
+            }}
+        }
+        else if(temp_city_size != null && temp_landkreis_akt == null && temp_l_r_m_reply != null){
+            for(let x=0; x< part_cities.length; x++){
+                    for(let b=0; b<part_nature.length; b++){
+                        if(part_cities[x] === part_nature[b] ){
+                            var same_3 = []
+                            if(true){
+                                same_3.push(part_cities[x])
+                            }
+                            if(same_3.length == 5 || same_3.length < 5){
+                                bot.send("Das Reiseziel/-e ist: " + same_3)
+                                return true
+                            }
+                            if(same_3.length > 5){
+                                var output = []
+                                for(let i=0; i<5; i++){
+                                var randIndex = Math.floor(Math.random() * same_3.length)
+                                var item = same_3[randIndex]
+                                output.push(item)
+                                }
+                                bot.send("Das Reiseziel/-e ist: " + output)
+                                return true
+                            }
+                        }
+                    }
+                }
+            }
 }
 
 //geben jeweiligen temporär gespeicherten Wert aus temp_data Datei zurück

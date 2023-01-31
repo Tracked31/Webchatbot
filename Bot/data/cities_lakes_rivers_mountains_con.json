@@ -1,32 +1,30 @@
 {
-    "Fluss":[{"Fluss": "Main", "Stadt": ["Bayreuth",
-                                               "Bamberg",
-                                               "Kitzingen",
-                                               "Würzburg"] },
-                   {"Fluss": "Donau", "Stadt": ["Deggendorf",
-                                                "Neuburg",
-                                                "Ingolstadt",
-                                                "Regensburg",
-                                                "Passau",
-                                                "Neu-Ulm"] },
-                   {"Fluss": "Isar", "Stadt": ["München",
-                                               "Dingolfing"
-                                               ] },
-                   {"Fluss": "Inn", "Stadt": ["Mühldorf",
-                                              "Rosenheim"] },
-                   {"Fluss": "Lech", "Stadt": ["Landsberg",
-                                               "Augsburg"]},
-                   {"Fluss": "Ilm", "Stadt": "Pfaffenhofen" }, 
-                   {"Fluss": "Pegnitz", "Stadt": ["Lauf",
-                                                  "Fürth"]},
-                   {"Fluss": "", "Stadt": "" } 
+    "Fluss":["Bayreuth",
+             "Bamberg",
+             "Kitzingen",
+             "Würzburg",
+             "Deggendorf",
+             "Neuburg",
+             "Ingolstadt",
+             "Regensburg",
+             "Passau",
+             "Neu-Ulm",
+             "München",
+             "Dingolfing",
+             "Mühldorf",
+             "Rosenheim",
+             "Landsberg",
+             "Augsburg",
+             "Pfaffenhofen", 
+             "Lauf",
+             "Fürth" 
 ],
-    "See":[{"See": "Bodensee", "Stadt":"Lindau"},
-                 {"See": "Starnberger See", "Stadt":"Starnberg"}
+    "See":["Lindau",
+           "Starnberg"
 ],
-    "Berg":[{"Berg": "Bayerischer Wald", "Stadt": ["Deggendorf",
-                                                         "Passau",
-                                                         "Straubing"]},
-                  {"Berg": "Bayerische Alpen", "Stadt": "Garmisch-Partenkirchen"}
+    "Berg":["Deggendorf",
+            "Passau",
+            "Straubing",
+            "Garmisch-Partenkirchen"
 ]
 }
