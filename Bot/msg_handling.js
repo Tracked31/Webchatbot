@@ -257,18 +257,40 @@ function out_dest(bot){
     var temp_landkreis_akt = get_temp_landkreis_akt()
     var temp_l_r_m_reply = get_temp_l_r_m_reply()
     if(temp_city_size != null && temp_landkreis_akt == null && temp_l_r_m_reply == null){
-        for(var a in cities){
-            for(var b in cities[a]){
-                if(temp_city_size.includes(cities[a][b])){
-                    bot.send(a)
-                    return true
-                }}}
+        if(temp_city_size == 'stadt'){
+            a = cities.Stadt
+        }
+        if(temp_city_size == 'kleinstadt'){
+            a = cities.Kleinstadt
+        }
+        if(temp_city_size == 'großstadt'){
+            a = cities.Großstadt
+        }
+        if(a.length == 5 || a.length < 5){
+            bot.send("Das Reiseziel/-e ist:" + a)
+            return true
+        }
+        if(a.length > 5){
+            for(let i=0; i>5; i++){
+            const output = []
+            const randIndex = Math.floor(Math.random() * a.length)
+            const item = a[randIndex]
+            output.append(item)
+            console.log(output)
+            bot.send("Das Reiseziel/-e ist:" + output)
+            return true
+            }
+        }
+        if(a.length == 5 || a.length < 5){
+            bot.send("Das Reiseziel/-e ist:" + a)
+            return true
+        }
     }
     else if(temp_city_size != null && temp_landkreis_akt != null && temp_l_r_m_reply == null){
         for(var x in cities.temp_city_size){
             for(var a in cities.temp_city_size[x]){
                 if(cities_landkreise_con.temp_landkreis_akt.includes(values.cities.temp_city_size[x][a])){
-                    bot.send(values)
+                    bot.send("Das Reiseziel/-e ist:" + a)
                     return true
                 } 
             }
@@ -279,7 +301,7 @@ function out_dest(bot){
             for(var a in cities.temp_city_size[x]){
                 if(lake_river_mountain_con.part.nachricht.includes(values.cities.temp_city_size[x][a]) && 
                 cities_landkreise_con.temp_landkreis_akt.includes(values.cities.temp_city_size[x][a])){
-                            bot.send(values)
+                            bot.send("Das Reiseziel/-e ist:" + a)
                             return true
                     }
             }
