@@ -27,6 +27,9 @@ var socket = new WebSocket('ws://localhost:8181/', 'chat');
         })
 
 function addMsg(msg,type){
+    //Funktion erstellt wenn type == self ist eine Userchatbubble 
+    //sonst wird eine Chatbotbubble erstellt
+    
     var str = "";
     if(type == 'self'){
         str += "<div class=\"bubbleWrapper\">";

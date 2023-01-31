@@ -5,7 +5,6 @@ var smalltalk = require('./data/smalltalk.json')
 var backup = require('./data/backup.json')
 var cities = require('./data/bayern_cities.json')
 var lake_river_mountain_con = require('./data/cities_lakes_rivers_mountains_con.json')
-var landkreise = require('./data/landkreise.json')
 var cities_landkreise_con = require('./data/cities_landkreise_con.json')
 var fs = require('fs')
 const { values } = require('lodash')
@@ -13,6 +12,8 @@ const { values } = require('lodash')
 
 
 function reply(nachricht, bot){
+    //Funktion die auf Nachtricht des Users antwortet und im Bot.js aufgerufen wird
+
     var nachricht_low = nachricht.toLowerCase()
 
     if(reply_smalltalk(nachricht_low, bot)== true){
@@ -46,7 +47,10 @@ function reply(nachricht, bot){
 
 
 function reply_smalltalk(nachricht, bot){
-    for(var reply in smalltalk){
+    //überprüft ob die Nachricht des Users in smalltalk.json 
+    //ist und falls ja sendet die Antwort darauf
+
+        for(var reply in smalltalk){
         for(var a in smalltalk[reply]){
             if(nachricht.includes(smalltalk[reply][a])){
                 bot.send(reply)
@@ -56,20 +60,10 @@ function reply_smalltalk(nachricht, bot){
     }
     return false
 }
-/*
-function reply_landkreise(nachricht){
-    for(var reply in landkreise){
-        for(var a in landkreise[reply]){
-            if(nachricht.includes(landkreise[reply][a])){
-                return true
-            }
-        }
-    }
-    return false
-}
-*/
 
 function reply_landkreise_y(nachricht,bot){
+    //überprüft die Antwort auf die Frage und gibt weiteren Verlauf an
+
     var temp_city_size = get_temp_city_size()
     var temp_landkreis_y_n = get_temp_landkreis_y_n()
     if(temp_landkreis_y_n == 'ja' || temp_landkreis_y_n == 'nein'){
@@ -105,6 +99,8 @@ function reply_landkreise_y(nachricht,bot){
 }
 
 function reply_landkreise_cities(nachricht,bot){
+    //überprüft die Antwort auf die Frage und gibt weiteren Verlauf an
+
     var temp_city_size = get_temp_city_size()
     var temp_landkreis_y_n = get_temp_landkreis_y_n()
     var temp_landkreis_akt = get_temp_landkreis_akt()
@@ -138,7 +134,97 @@ function reply_landkreise_cities(nachricht,bot){
 }
 }
 
+function nature_reply(nachricht,bot){
+    //überprüft die Antwort auf die Frage und gibt weiteren Verlauf an
+
+    var temp_city_size = get_temp_city_size()
+    var temp_landkreis_y_n = get_temp_landkreis_y_n()
+    var temp_landkreis_akt = get_temp_landkreis_akt()
+    var temp_nature_q = get_temp_nature_q()
+    if(temp_nature_q == 'ja' || temp_nature_q == 'niemals'){
+        if(temp_nature_q == 'ja'){
+            lake_river_mountain_reply(nachricht,bot)
+        }
+        if(temp_nature_q == 'niemals'){
+            if(out_dest(bot)== true){
+                return
+            } 
+        }
+    }
+    else{
+        if(nachricht == 'ja' || nachricht == 'niemals'){
+            var data = {
+                "city_size":temp_city_size,
+                "landkreis_y_n":temp_landkreis_y_n,
+                "landkreis_akt":temp_landkreis_akt,
+                "nature_q":nachricht,
+                "l_r_m_reply":null
+            }
+            data = JSON.stringify(data)
+            fs.writeFileSync('./Bot/data/temp_data.json', data)
+            if(nachricht == 'ja'){
+                lake_river_mountain_reply(nachricht,bot)
+            }
+            if(nachricht == 'niemals'){
+                if(out_dest(bot)== true){
+                    return
+                } 
+            }
+        }
+        else{
+            bot.send('Möchtest du das die Stadt in der Nähe eines Gewässers oder Bergen liegt?(ja, niemals)')
+        }
+    }
+}
+
+function lake_river_mountain_reply(nachricht,bot){
+    //überprüft die Antwort auf die Frage und gibt weiteren Verlauf an
+
+    var temp_city_size = get_temp_city_size()
+    var temp_landkreis_y_n = get_temp_landkreis_y_n()
+    var temp_landkreis_akt = get_temp_landkreis_akt()
+    var temp_nature_q = get_temp_nature_q()
+    var temp_l_r_m_reply = get_temp_l_r_m_reply()
+    if(temp_l_r_m_reply == 'fluss' || temp_l_r_m_reply == 'see' || temp_l_r_m_reply == 'berg'){
+        part = temp_l_r_m_reply
+        if(check_river_mountain_sea() == true){
+            if(out_dest(bot)== true){
+                return
+            } 
+        }
+    }
+    else{
+        nachricht = nachricht.toLowerCase()
+        if(nachricht == 'fluss' || nachricht == 'see' || nachricht == 'berg'){
+        var data = {
+            "city_size":temp_city_size,
+            "landkreis_y_n":temp_landkreis_y_n,
+            "landkreis_akt":temp_landkreis_akt,
+            "nature_q":temp_nature_q,
+            "l_r_m_reply":nachricht
+        }
+        data = JSON.stringify(data)
+        fs.writeFileSync('./Bot/data/temp_data.json', data)
+        part = temp_l_r_m_reply
+        if(check_river_mountain_sea() == true){
+            if(out_dest(bot)== true){
+                return
+            } 
+        }
+        if(check_river_mountain_sea() == false){
+            wrong_param(bot)
+        }
+    }
+    else{
+        bot.send('Soll die Stadt an einem Fluss, See oder Berg liegen?')
+    }
+    }
+}
+
 function check_landkreise_cities(){
+    //überprüft ob eine Stadt aus der gewählten Stadtgröße auch im
+    //gewählten Landkreis liegt
+
     var temp_city_size = get_temp_city_size()
     var temp_landkreis_akt = get_temp_landkreis_akt()
     var part_cities
@@ -183,89 +269,10 @@ function check_landkreise_cities(){
     return false
 }
 
-function nature_reply(nachricht,bot){
-    var temp_city_size = get_temp_city_size()
-    var temp_landkreis_y_n = get_temp_landkreis_y_n()
-    var temp_landkreis_akt = get_temp_landkreis_akt()
-    var temp_nature_q = get_temp_nature_q()
-    if(temp_nature_q == 'ja' || temp_nature_q == 'niemals'){
-        if(temp_nature_q == 'ja'){
-            lake_river_mountain_reply(nachricht,bot)
-        }
-        if(temp_nature_q == 'niemals'){
-            if(out_dest(bot)== true){
-                return
-            } 
-        }
-    }
-    else{
-        if(nachricht == 'ja' || nachricht == 'niemals'){
-            var data = {
-                "city_size":temp_city_size,
-                "landkreis_y_n":temp_landkreis_y_n,
-                "landkreis_akt":temp_landkreis_akt,
-                "nature_q":nachricht,
-                "l_r_m_reply":null
-            }
-            data = JSON.stringify(data)
-            fs.writeFileSync('./Bot/data/temp_data.json', data)
-            if(nachricht == 'ja'){
-                lake_river_mountain_reply(nachricht,bot)
-            }
-            if(nachricht == 'niemals'){
-                if(out_dest(bot)== true){
-                    return
-                } 
-            }
-        }
-        else{
-            bot.send('Möchtest du das die Stadt in der Nähe eines Gewässers oder Bergen liegt?(ja, niemals)')
-        }
-    }
-}
-function lake_river_mountain_reply(nachricht,bot){
-    var temp_city_size = get_temp_city_size()
-    var temp_landkreis_y_n = get_temp_landkreis_y_n()
-    var temp_landkreis_akt = get_temp_landkreis_akt()
-    var temp_nature_q = get_temp_nature_q()
-    var temp_l_r_m_reply = get_temp_l_r_m_reply()
-    if(temp_l_r_m_reply == 'fluss' || temp_l_r_m_reply == 'see' || temp_l_r_m_reply == 'berg'){
-        part = temp_l_r_m_reply
-        if(check_river_mountain_sea() == true){
-            if(out_dest(bot)== true){
-                return
-            } 
-        }
-    }
-    else{
-        nachricht = nachricht.toLowerCase()
-        if(nachricht == 'fluss' || nachricht == 'see' || nachricht == 'berg'){
-        var data = {
-            "city_size":temp_city_size,
-            "landkreis_y_n":temp_landkreis_y_n,
-            "landkreis_akt":temp_landkreis_akt,
-            "nature_q":temp_nature_q,
-            "l_r_m_reply":nachricht
-        }
-        data = JSON.stringify(data)
-        fs.writeFileSync('./Bot/data/temp_data.json', data)
-        part = temp_l_r_m_reply
-        if(check_river_mountain_sea() == true){
-            if(out_dest(bot)== true){
-                return
-            } 
-        }
-        if(check_river_mountain_sea() == false){
-            wrong_param(bot)
-        }
-    }
-    else{
-        bot.send('Soll die Stadt an einem Fluss, See oder Berg liegen?')
-    }
-    }
-}
-
 function check_river_mountain_sea(){
+    //überprüft ob eine Stadt aus der gewählten Stadtgröße auch im
+    //gewählten Landkreis liegt und dort ein Fluss/See/Berg ist
+
     var temp_city_size = get_temp_city_size()
     var temp_landkreis_akt = get_temp_landkreis_akt()
     var temp_l_r_m_reply = get_temp_l_r_m_reply()
@@ -320,7 +327,10 @@ function check_river_mountain_sea(){
         }
     }
 }
+
 function wrong_param(bot){
+    //gibt zufällige Nachricht zurück wenn Bot nichts versteht
+
     const key = backup.key(name)
     const randIndex = Math.floor(Math.random() * key.length)
     const randKey = key[randIndex]
@@ -329,6 +339,8 @@ function wrong_param(bot){
 }
 
 function out_dest(bot){
+    //gibt das Reiseziel aus
+
     var temp_city_size = get_temp_city_size()
     var temp_landkreis_akt = get_temp_landkreis_akt()
     var temp_l_r_m_reply = get_temp_l_r_m_reply()
@@ -376,22 +388,21 @@ function out_dest(bot){
     }
     if(temp_city_size != null && temp_landkreis_akt == null && temp_l_r_m_reply == null){
         if(part_cities.length == 5 || part_cities.length < 5){
-            bot.send("Das Reiseziel/-e ist:" + part_cities)
+            bot.send("Das Reiseziel/-e ist: " + part_cities)
             return true
         }
         if(part_cities.length > 5){
-            for(let i=0; i>5; i++){
             var output = []
+            for(let i=0; i>5; i++){
             var randIndex = Math.floor(Math.random() * part_cities.length)
             var item = part_cities[randIndex]
-            output.append(item)
-            console.log(output)
-            bot.send("Das Reiseziel/-e ist:" + output)
-            return true
+            output.push(item)
             }
+            bot.send("Das Reiseziel/-e ist: " + output)
+            return true
         }
         if(a.length == 5 || a.length < 5){
-            bot.send("Das Reiseziel/-e ist:" + a)
+            bot.send("Das Reiseziel/-e ist: " + a)
             return true
         }
     }
@@ -410,7 +421,7 @@ function out_dest(bot){
             for(var a in part_cities[x]){
                 if(part_nature.includes(values.part_cities[x][a]) && 
                 part_landreis.includes(values.cities.part_cities[x][a])){
-                            bot.send("Das Reiseziel/-e ist:" + a)
+                            bot.send("Das Reiseziel/-e ist: " + a)
                             return true
                     }
             }
@@ -418,6 +429,8 @@ function out_dest(bot){
     }
     return false
 }
+
+//geben jeweiligen temporär gespeicherten Wert aus temp_data Datei zurück
 
 function get_temp_city_size(){
     var json = fs.readFileSync('./Bot/data/temp_data.json')
