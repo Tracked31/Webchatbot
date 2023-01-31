@@ -63,10 +63,6 @@ html,
     
   }
   #sendBtn{
-    /*
-    border-right: 0.5px solid #0d0d0d;
-    border-bottom:  0.5px solid #0d0d0d;
-    */
     font-size: 24px;
     border: 0;
     border-radius: 0 0 12px 0;
@@ -184,4 +180,10 @@ html,
   .inlineIcon{
     object-fit:contain;
     width: 50px;
+  }
+
+  @media only screen and (max-width: 500px){
+    .outer {
+      height: 40vh;
+    }
   }

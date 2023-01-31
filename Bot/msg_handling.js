@@ -140,9 +140,42 @@ function reply_landkreise_cities(nachricht,bot){
 
 function check_landkreise_cities(){
     var temp_city_size = get_temp_city_size()
-    for(var x in cities.temp_city_size){
-        for(var a in cities.temp_city_size[x]){
-            if(cities_landkreise_con.temp_landkreis_akt.includes(values.cities.temp_city_size[x][a])){
+    var temp_landkreis_akt = get_temp_landkreis_akt()
+    var part_cities
+    var part_landreis
+    if(temp_city_size == 'stadt'){
+        part_cities = cities.Stadt
+    }
+    if(temp_city_size == 'kleinstadt'){
+        part_cities = cities.Kleinstadt
+    }
+    if(temp_city_size == 'großstadt'){
+        part_cities = cities.Großstadt
+    }
+    if(temp_landkreis_akt == 'unterfranken'){
+        part_landreis = cities_landkreise_con.Unterfranken
+    }
+    if(temp_landkreis_akt == 'mittelfranken'){
+        part_landreis = cities_landkreise_con.Mittelfranken
+    }
+    if(temp_landkreis_akt == 'oberfranken'){
+        part_landreis = cities_landkreise_con.Oberfranken
+    }
+    if(temp_landkreis_akt == 'niederbayern'){
+        part_landreis = cities_landkreise_con.Niederbayern
+    }
+    if(temp_landkreis_akt == 'oberbayern'){
+        part_landreis = cities_landkreise_con.Oberbayern
+    }
+    if(temp_landkreis_akt == 'oberpfalz'){
+        part_landreis = cities_landkreise_con.Oberpfalz
+    }
+    if(temp_landkreis_akt == 'schwaben'){
+        part_landreis = cities_landkreise_con.Schwaben
+    }
+    for(var x in part_cities){
+        for(var a in part_cities[x]){
+            if(part_landreis.includes(values.part_cities[x][a])){
                 return true
             } 
         }
@@ -198,7 +231,7 @@ function lake_river_mountain_reply(nachricht,bot){
     var temp_l_r_m_reply = get_temp_l_r_m_reply()
     if(temp_l_r_m_reply == 'fluss' || temp_l_r_m_reply == 'see' || temp_l_r_m_reply == 'berg'){
         part = temp_l_r_m_reply
-        if(check_river_mountain_sea(nachricht,part) == true){
+        if(check_river_mountain_sea() == true){
             if(out_dest(bot)== true){
                 return
             } 
@@ -217,12 +250,12 @@ function lake_river_mountain_reply(nachricht,bot){
         data = JSON.stringify(data)
         fs.writeFileSync('./Bot/data/temp_data.json', data)
         part = temp_l_r_m_reply
-        if(check_river_mountain_sea(nachricht,part) == true){
+        if(check_river_mountain_sea() == true){
             if(out_dest(bot)== true){
                 return
             } 
         }
-        if(check_river_mountain_sea(nachricht,part) == false){
+        if(check_river_mountain_sea() == false){
             wrong_param(bot)
         }
     }
@@ -232,13 +265,56 @@ function lake_river_mountain_reply(nachricht,bot){
     }
 }
 
-function check_river_mountain_sea(nachricht, part){
+function check_river_mountain_sea(){
     var temp_city_size = get_temp_city_size()
     var temp_landkreis_akt = get_temp_landkreis_akt()
-    for(var x in cities.temp_city_size){
-        for(var a in cities.temp_city_size[x]){
-            if(lake_river_mountain_con.part.nachricht.includes(values.cities.temp_city_size[x][a]) && 
-                cities_landkreise_con.temp_landkreis_akt.includes(values.cities.temp_city_size[x][a])){
+    var temp_l_r_m_reply = get_temp_l_r_m_reply()
+    var part_cities
+    var part_landreis
+    var part_nature
+    if(temp_city_size == 'stadt'){
+        part_cities = cities.Stadt
+    }
+    if(temp_city_size == 'kleinstadt'){
+        part_cities = cities.Kleinstadt
+    }
+    if(temp_city_size == 'großstadt'){
+        part_cities = cities.Großstadt
+    }
+    if(temp_landkreis_akt == 'unterfranken'){
+        part_landreis = cities_landkreise_con.Unterfranken
+    }
+    if(temp_landkreis_akt == 'mittelfranken'){
+        part_landreis = cities_landkreise_con.Mittelfranken
+    }
+    if(temp_landkreis_akt == 'oberfranken'){
+        part_landreis = cities_landkreise_con.Oberfranken
+    }
+    if(temp_landkreis_akt == 'niederbayern'){
+        part_landreis = cities_landkreise_con.Niederbayern
+    }
+    if(temp_landkreis_akt == 'oberbayern'){
+        part_landreis = cities_landkreise_con.Oberbayern
+    }
+    if(temp_landkreis_akt == 'oberpfalz'){
+        part_landreis = cities_landkreise_con.Oberpfalz
+    }
+    if(temp_landkreis_akt == 'schwaben'){
+        part_landreis = cities_landkreise_con.Schwaben
+    }
+    if(temp_l_r_m_reply == 'see'){
+        part_nature = lake_river_mountain_con.See
+    }
+    if(temp_l_r_m_reply == 'fluss'){
+        part_nature = lake_river_mountain_con.Fluss
+    }
+    if(temp_l_r_m_reply == 'berg'){
+        part_nature = lake_river_mountain_con.Berg
+    }
+    for(var x in part_cities){
+        for(var a in part_cities[x]){
+            if(part_nature.includes(values.part_cities[x][a]) && 
+                part_landreis.includes(values.part_cities[x][a])){
                     return true
                 }
         }
@@ -256,25 +332,58 @@ function out_dest(bot){
     var temp_city_size = get_temp_city_size()
     var temp_landkreis_akt = get_temp_landkreis_akt()
     var temp_l_r_m_reply = get_temp_l_r_m_reply()
+    var part_cities
+    var part_landreis
+    var part_nature
+    if(temp_city_size == 'stadt'){
+        part_cities = cities.Stadt
+    }
+    if(temp_city_size == 'kleinstadt'){
+        part_cities = cities.Kleinstadt
+    }
+    if(temp_city_size == 'großstadt'){
+        part_cities = cities.Großstadt
+    }
+    if(temp_landkreis_akt == 'unterfranken'){
+        part_landreis = cities_landkreise_con.Unterfranken
+    }
+    if(temp_landkreis_akt == 'mittelfranken'){
+        part_landreis = cities_landkreise_con.Mittelfranken
+    }
+    if(temp_landkreis_akt == 'oberfranken'){
+        part_landreis = cities_landkreise_con.Oberfranken
+    }
+    if(temp_landkreis_akt == 'niederbayern'){
+        part_landreis = cities_landkreise_con.Niederbayern
+    }
+    if(temp_landkreis_akt == 'oberbayern'){
+        part_landreis = cities_landkreise_con.Oberbayern
+    }
+    if(temp_landkreis_akt == 'oberpfalz'){
+        part_landreis = cities_landkreise_con.Oberpfalz
+    }
+    if(temp_landkreis_akt == 'schwaben'){
+        part_landreis = cities_landkreise_con.Schwaben
+    }
+    if(temp_l_r_m_reply == 'see'){
+        part_nature = lake_river_mountain_con.See
+    }
+    if(temp_l_r_m_reply == 'fluss'){
+        part_nature = lake_river_mountain_con.Fluss
+    }
+    if(temp_l_r_m_reply == 'berg'){
+        part_nature = lake_river_mountain_con.Berg
+    }
     if(temp_city_size != null && temp_landkreis_akt == null && temp_l_r_m_reply == null){
-        if(temp_city_size == 'stadt'){
-            a = cities.Stadt
-        }
-        if(temp_city_size == 'kleinstadt'){
-            a = cities.Kleinstadt
-        }
-        if(temp_city_size == 'großstadt'){
-            a = cities.Großstadt
-        }
-        if(a.length == 5 || a.length < 5){
-            bot.send("Das Reiseziel/-e ist:" + a)
+        if(part_cities.length == 5 || part_cities.length < 5){
+            bot.send("Das Reiseziel/-e ist:" + part_cities)
             return true
         }
-        if(a.length > 5){
+        if(part_cities.length > 5){
             for(let i=0; i>5; i++){
-            const output = []
-            const randIndex = Math.floor(Math.random() * a.length)
-            const item = a[randIndex]
+            var output = []
+            var randIndex = Math.floor(Math.random() * part_cities.length)
+            var item = part_cities[randIndex]
             output.append(item)
             console.log(output)
             bot.send("Das Reiseziel/-e ist:" + output)
@@ -287,20 +396,20 @@ function out_dest(bot){
         }
     }
     else if(temp_city_size != null && temp_landkreis_akt != null && temp_l_r_m_reply == null){
-        for(var x in cities.temp_city_size){
-            for(var a in cities.temp_city_size[x]){
-                if(cities_landkreise_con.temp_landkreis_akt.includes(values.cities.temp_city_size[x][a])){
-                    bot.send("Das Reiseziel/-e ist:" + a)
+        for(var x in part_cities){
+            for(var a in part_cities[x]){
+                if(part_landreis.includes(values.part_cities[x][a])){
+                    bot.send("Das Reiseziel/-e ist: " + a)
                     return true
                 } 
             }
         }
     }
     else if(temp_city_size != null && temp_landkreis_akt != null && temp_l_r_m_reply != null){
-        for(var x in cities.temp_city_size ){
-            for(var a in cities.temp_city_size[x]){
-                if(lake_river_mountain_con.part.nachricht.includes(values.cities.temp_city_size[x][a]) && 
-                cities_landkreise_con.temp_landkreis_akt.includes(values.cities.temp_city_size[x][a])){
+        for(var x in part_cities){
+            for(var a in part_cities[x]){
+                if(part_nature.includes(values.part_cities[x][a]) && 
+                part_landreis.includes(values.cities.part_cities[x][a])){
                             bot.send("Das Reiseziel/-e ist:" + a)
                             return true
                     }
